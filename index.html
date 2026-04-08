@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philipp Explains — The Quantum Energy Interview Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============================================================
+   VARIABLES & RESET
+   ============================================================ */
+:root {
+  --bg: #06080c;
+  --bg-elevated: #0d1017;
+  --bg-card: #111620;
+  --bg-card-hover: #161d2a;
+  --cyan: #00e8d0;
+  --cyan-dim: rgba(0,232,208,0.10);
+  --cyan-glow: rgba(0,232,208,0.20);
+  --amber: #ffb347;
+  --amber-dim: rgba(255,179,71,0.10);
+  --red: #ff4d6a;
+  --text: #eef0f4;
+  --text-2: #8b919c;
+  --text-3: #4a4f5c;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(0,232,208,0.25);
+  --font-display: 'Unbounded', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* category colors */
+  --cat-science: #648cff;
+  --cat-biohacking: #00c896;
+  --cat-consciousness: #b464ff;
+  --cat-emf: #ff6464;
+  --cat-origin: #ffb347;
+  --cat-skeptic: #00e8d0;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--cyan); text-decoration: none; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 16px 0;
+  background: rgba(6,8,12,0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.3s var(--ease);
+}
+.nav.scrolled { padding: 10px 0; }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1280px; margin: 0 auto; padding: 0 32px;
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 0.85rem; font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.5px;
+}
+.nav-brand span { color: var(--text-2); font-weight: 400; font-family: var(--font-body); font-size: 0.8rem; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  color: var(--text-2); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.5px; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  padding: 8px 20px; border-radius: 100px;
+  background: var(--cyan); color: var(--bg);
+  font-weight: 600; font-size: 0.78rem;
+  letter-spacing: 0.3px; transition: all 0.3s var(--ease);
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--cyan-glow); color: var(--bg); }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative; min-height: 92vh;
+  display: flex; align-items: center;
+  padding: 140px 0 80px;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 30% 20%, rgba(0,232,208,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 75% 70%, rgba(100,140,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(transparent, var(--bg));
+  pointer-events: none;
+}
+
+/* Grain overlay */
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 720px;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+}
+.hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  font-weight: 900; line-height: 1.0;
+  letter-spacing: -1.5px; margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
+}
+.hero h1 .accent { color: var(--cyan); }
+.hero-sub {
+  font-size: 1.1rem; color: var(--text-2);
+  line-height: 1.7; max-width: 540px; margin-bottom: 36px;
+  opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+}
+.hero-sub strong { color: var(--text); font-weight: 600; }
+
+.hero-stats {
+  display: flex; gap: 40px;
+  opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+}
+.hero-stat-num {
+  font-family: var(--font-display); font-size: 2rem;
+  font-weight: 800; color: var(--text);
+}
+.hero-stat-label {
+  font-size: 0.72rem; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px;
+}
+
+/* ============================================================
+   AS SEEN ON TICKER
+   ============================================================ */
+.ticker {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+.ticker-track {
+  display: flex; align-items: center; gap: 48px;
+  animation: tickerScroll 35s linear infinite;
+  width: max-content;
+}
+.ticker-item {
+  flex-shrink: 0; white-space: nowrap;
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--text-3); letter-spacing: 0.5px;
+  display: flex; align-items: center; gap: 10px;
+  transition: color 0.3s;
+}
+.ticker-item:hover { color: var(--text-2); }
+.ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); opacity: 0.4; }
+@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ============================================================
+   START HERE — CURATED TOP 3
+   ============================================================ */
+.start-here { padding: 80px 0 60px; }
+.section-header {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
+}
+.section-tag {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--bg); background: var(--cyan);
+  padding: 4px 12px; border-radius: 4px; font-weight: 600;
+}
+.section-title {
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
+}
+.section-line { flex: 1; height: 1px; background: var(--border); }
+
+/* Featured large card */
+.featured-card {
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-bottom: 24px; cursor: pointer;
+}
+.featured-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px var(--cyan-dim);
+}
+.featured-video {
+  position: relative; aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #131a28, #0a0e16);
+  display: flex; align-items: center; justify-content: center;
+}
+.featured-play {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--cyan); display: flex;
+  align-items: center; justify-content: center;
+  box-shadow: 0 0 40px var(--cyan-glow);
+  transition: transform 0.3s;
+}
+.featured-card:hover .featured-play { transform: scale(1.1); }
+.featured-play i { color: var(--bg); font-size: 1.4rem; margin-left: 3px; }
+.featured-badge-top {
+  position: absolute; top: 14px; left: 14px;
+  background: linear-gradient(135deg, var(--cyan), #00b8a9);
+  color: var(--bg); font-size: 0.6rem; font-weight: 700;
+  padding: 4px 12px; border-radius: 50px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.featured-duration {
+  position: absolute; bottom: 14px; right: 14px;
+  background: rgba(0,0,0,0.75); padding: 3px 10px;
+  border-radius: 4px; font-family: var(--font-mono);
+  font-size: 0.72rem; color: var(--text-2);
+}
+.featured-info { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+.featured-channel {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 12px;
+}
+.featured-info h3 {
+  font-family: var(--font-display); font-size: 1.35rem;
+  font-weight: 700; line-height: 1.25; margin-bottom: 12px;
+}
+.featured-host { font-size: 0.9rem; color: var(--text-2); margin-bottom: 16px; }
+.featured-host strong { color: var(--text); }
+.featured-desc {
+  font-size: 0.9rem; color: var(--text-2);
+  line-height: 1.7; margin-bottom: 20px;
+}
+.featured-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  padding: 4px 12px; border-radius: 4px;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.tag-science { background: rgba(100,140,255,0.12); color: var(--cat-science); }
+.tag-biohacking { background: rgba(0,200,150,0.12); color: var(--cat-biohacking); }
+.tag-consciousness { background: rgba(180,100,255,0.12); color: var(--cat-consciousness); }
+.tag-emf { background: rgba(255,100,100,0.12); color: var(--cat-emf); }
+.tag-origin { background: rgba(255,179,71,0.12); color: var(--cat-origin); }
+.tag-skeptic { background: rgba(0,232,208,0.12); color: var(--cat-skeptic); }
+
+/* Expandable panel inside cards */
+.expand-panel { display: none; padding: 0 40px 32px; }
+.expand-panel.open { display: block; }
+.ep-label {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--cyan); margin: 20px 0 12px;
+}
+.timestamp-list { list-style: none; }
+.timestamp-list li {
+  display: flex; gap: 14px; padding: 8px 0;
+  border-bottom: 1px solid var(--border); font-size: 0.82rem;
+}
+.timestamp-list li:last-child { border-bottom: none; }
+.ts-time { font-family: var(--font-mono); color: var(--cyan); min-width: 54px; font-size: 0.75rem; }
+.ts-text { color: var(--text-2); }
+.qa-item { margin-bottom: 16px; }
+.qa-q {
+  font-weight: 600; color: var(--text); font-size: 0.88rem; margin-bottom: 6px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.qa-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; background: var(--cyan);
+  color: var(--bg); border-radius: 4px; font-size: 0.62rem;
+  font-weight: 700; font-family: var(--font-mono); flex-shrink: 0;
+}
+.qa-a { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; padding-left: 32px; }
+
+@media (max-width: 900px) {
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-info { padding: 24px; }
+  .expand-panel { padding: 0 24px 24px; }
+}
+
+/* Top 3 sub-grid */
+.start-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) { .start-grid { grid-template-columns: 1fr; } }
+
+.start-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  display: grid; grid-template-columns: 180px 1fr;
+  cursor: pointer; transition: all 0.3s var(--ease);
+}
+.start-card:hover {
+  border-color: var(--border-hover); transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.start-card-thumb {
+  aspect-ratio: 16/12; background: linear-gradient(135deg, #131a28, #0a0e16);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.start-card-thumb .play-sm {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(0,232,208,0.8); display: flex;
+  align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+}
+.start-card:hover .play-sm { opacity: 1; }
+.play-sm i { color: var(--bg); font-size: 0.8rem; margin-left: 2px; }
+.start-card-body { padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; }
+.start-card-cat {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.start-card-body h4 {
+  font-family: var(--font-display); font-size: 0.82rem;
+  font-weight: 700; line-height: 1.3; margin-bottom: 6px;
+}
+.start-card-host { font-size: 0.78rem; color: var(--text-2); }
+.start-card-dur {
+  position: absolute; bottom: 8px; right: 8px;
+  background: rgba(0,0,0,0.75); padding: 2px 7px;
+  border-radius: 3px; font-family: var(--font-mono);
+  font-size: 0.62rem; color: var(--text-2);
+}
+@media (max-width: 600px) {
+  .start-card { grid-template-columns: 1fr; }
+  .start-card-thumb { aspect-ratio: 16/9; }
+}
+
+/* ============================================================
+   BRASS BALLS INTERSTITIAL
+   ============================================================ */
+.interstitial {
+  padding: 80px 32px; text-align: center;
+  position: relative;
+}
+.interstitial::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,232,208,0.03), transparent);
+}
+.interstitial-quote {
+  position: relative; z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  font-weight: 800; line-height: 1.2;
+  max-width: 900px; margin: 0 auto 16px;
+}
+.interstitial-quote .cy { color: var(--cyan); }
+.interstitial-quote .rd { color: var(--red); }
+.interstitial-quote .am { color: var(--amber); }
+.interstitial-sub {
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--text-3); letter-spacing: 1px;
+}
+
+/* ============================================================
+   FILTER BAR
+   ============================================================ */
+.filter-section { padding: 60px 0 0; }
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center; margin-bottom: 36px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border);
+}
+.filter-label {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--text-3); letter-spacing: 2px;
+  text-transform: uppercase; margin-right: 8px;
+}
+.filter-btn {
+  padding: 8px 18px; border-radius: 100px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-2); font-family: var(--font-body);
+  font-size: 0.8rem; font-weight: 500; cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--border-hover); color: var(--text); }
+.filter-btn.active {
+  background: var(--cyan); border-color: var(--cyan);
+  color: var(--bg); font-weight: 600;
+}
+.filter-count {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--text-3); margin-left: auto;
+}
+
+/* ============================================================
+   INTERVIEW GRID
+   ============================================================ */
+.grid-section { padding: 0 0 80px; }
+.interview-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+@media (max-width: 1024px) { .interview-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .interview-grid { grid-template-columns: 1fr; } }
+
+.v-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; cursor: pointer;
+  transition: all 0.3s var(--ease);
+}
+.v-card:hover {
+  border-color: var(--border-hover); transform: translateY(-4px);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.35), 0 0 20px var(--cyan-dim);
+}
+.v-card.hidden { display: none; }
+
+.v-thumb {
+  position: relative; aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #131a28, #0a0e16);
+  display: flex; align-items: center; justify-content: center;
+}
+.v-play {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(0,232,208,0.8);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.8);
+  transition: all 0.25s;
+}
+.v-card:hover .v-play { opacity: 1; transform: scale(1); }
+.v-play i { color: var(--bg); font-size: 0.9rem; margin-left: 2px; }
+.v-cat-badge {
+  position: absolute; top: 10px; left: 10px;
+  padding: 3px 10px; border-radius: 50px;
+  font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+}
+.badge-science { background: rgba(100,140,255,0.15); color: var(--cat-science); border: 1px solid rgba(100,140,255,0.2); }
+.badge-biohacking { background: rgba(0,200,150,0.15); color: var(--cat-biohacking); border: 1px solid rgba(0,200,150,0.2); }
+.badge-consciousness { background: rgba(180,100,255,0.15); color: var(--cat-consciousness); border: 1px solid rgba(180,100,255,0.2); }
+.badge-emf { background: rgba(255,100,100,0.15); color: var(--cat-emf); border: 1px solid rgba(255,100,100,0.2); }
+.badge-origin { background: rgba(255,179,71,0.15); color: var(--cat-origin); border: 1px solid rgba(255,179,71,0.2); }
+.badge-skeptic { background: rgba(0,232,208,0.15); color: var(--cat-skeptic); border: 1px solid rgba(0,232,208,0.2); }
+
+.v-dur {
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(0,0,0,0.75); padding: 3px 8px;
+  border-radius: 3px; font-family: var(--font-mono);
+  font-size: 0.65rem; color: var(--text-2);
+}
+.v-body { padding: 18px 20px 20px; }
+.v-body-cat {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;
+}
+.v-body h3 {
+  font-family: var(--font-display); font-size: 0.85rem;
+  font-weight: 700; line-height: 1.3; margin-bottom: 6px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.v-host {
+  font-size: 0.78rem; color: var(--text-2); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.v-host i { color: var(--cyan); font-size: 0.6rem; }
+.v-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.68rem; color: var(--text-3);
+}
+.v-views { display: flex; align-items: center; gap: 4px; }
+.v-views i { font-size: 0.55rem; }
+.v-expand-hint {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: var(--text-3); letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.v-card:hover .v-expand-hint { color: var(--cyan); }
+
+/* Card expand panel */
+.v-expand {
+  display: none; padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+.v-expand.open { display: block; }
+.v-expand .ep-label { margin-top: 14px; }
+.v-expand-summary {
+  font-size: 0.82rem; color: var(--text-2); line-height: 1.7;
+}
+
+/* ============================================================
+   STATS BAR
+   ============================================================ */
+.stats-bar {
+  padding: 64px 0; background: var(--bg-elevated);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 32px; text-align: center;
+}
+@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; } }
+.stat-num {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800; color: var(--cyan); margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 0.78rem; color: var(--text-2); font-weight: 500;
+}
+
+/* ============================================================
+   SPEAKING TOPICS
+   ============================================================ */
+.topics-section { padding: 80px 0 60px; }
+.topics-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) { .topics-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .topics-grid { grid-template-columns: 1fr; } }
+.topic-card {
+  padding: 28px 24px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px;
+  transition: all 0.3s var(--ease); text-align: center;
+}
+.topic-card:hover {
+  border-color: var(--border-hover); transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.topic-card i { font-size: 1.4rem; color: var(--cyan); margin-bottom: 14px; }
+.topic-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+.topic-card p { font-size: 0.78rem; color: var(--text-3); line-height: 1.5; }
+
+/* ============================================================
+   DUAL CTA
+   ============================================================ */
+.cta-section { padding: 80px 0; }
+.cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 768px) { .cta-grid { grid-template-columns: 1fr; } }
+.cta-box {
+  padding: 48px 40px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 16px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-box::before {
+  content: ''; position: absolute; top: -1px;
+  left: 25%; right: 25%; height: 2px;
+}
+.cta-box.cyan-box::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+.cta-box.amber-box::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+.cta-box h3 {
+  font-family: var(--font-display); font-size: 1.2rem;
+  font-weight: 700; margin-bottom: 10px;
+}
+.cta-box p { color: var(--text-2); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.6; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 36px; border-radius: 100px;
+  font-family: var(--font-body); font-weight: 600;
+  font-size: 0.88rem; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); letter-spacing: 0.3px;
+}
+.cta-btn-cyan { background: var(--cyan); color: var(--bg); }
+.cta-btn-cyan:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--cyan-glow); color: var(--bg); }
+.cta-btn-amber { background: var(--amber); color: var(--bg); }
+.cta-btn-amber:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--amber-dim); color: var(--bg); }
+.cta-sub { margin-top: 12px; font-size: 0.75rem; color: var(--text-3); }
+
+/* ============================================================
+   ECOSYSTEM FOOTER
+   ============================================================ */
+.eco-footer {
+  padding: 40px 32px; border-top: 1px solid var(--border);
+}
+.eco-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 20px;
+}
+.eco-brand {
+  font-family: var(--font-display); font-size: 0.7rem;
+  font-weight: 600; color: var(--text-3); letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.eco-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.eco-links a {
+  font-size: 0.78rem; color: var(--text-3);
+  transition: color 0.2s;
+}
+.eco-links a:hover { color: var(--cyan); }
+.eco-copy {
+  width: 100%; text-align: center; margin-top: 20px;
+  font-size: 0.7rem; color: var(--text-3);
+  padding-top: 20px; border-top: 1px solid var(--border);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ======== NAV ======== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Philipp Explains<span> &nbsp;·&nbsp; Interview Archive</span></div>
+    <div class="nav-links">
+      <a href="#start">Start Here</a>
+      <a href="#archive">All Interviews</a>
+      <a href="#topics">Topics</a>
+      <a href="https://quantumupgrade.io" class="nav-cta">Try Free for 7 Days</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======== HERO ======== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">The Interview Archive</div>
+      <h1>Philipp<br><span class="accent">Explains.</span></h1>
+      <p class="hero-sub">Every interview. Every question answered. The complete collection of <strong>Philipp von Holtzendorff-Fehling</strong> explaining the science, the technology, and the future of quantum energy — across 47+ podcasts and shows.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num" data-target="47" data-suffix="+">0</div>
+          <div class="hero-stat-label">Interviews</div>
+        </div>
+        <div>
+          <div class="hero-stat-num" data-target="82" data-suffix="hrs">0</div>
+          <div class="hero-stat-label">Of Content</div>
+        </div>
+        <div>
+          <div class="hero-stat-num" data-target="59" data-suffix="+">0</div>
+          <div class="hero-stat-label">Studies Cited</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TICKER ======== -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item"><span class="ticker-dot"></span>The Human Upgrade · Dave Asprey</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Ben Greenfield Life</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>The Life Stylist · Luke Storey</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Highest Self · Sahara Rose</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>BiohackingCongress</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Quite Frankly Podcast</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>HEAL with Kelly</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>The Wellness Mama</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Authority Magazine</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Dr. Christine Schaffner</div>
+    <!-- duplicate for seamless scroll -->
+    <div class="ticker-item"><span class="ticker-dot"></span>The Human Upgrade · Dave Asprey</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Ben Greenfield Life</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>The Life Stylist · Luke Storey</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Highest Self · Sahara Rose</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>BiohackingCongress</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Quite Frankly Podcast</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>HEAL with Kelly</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>The Wellness Mama</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Authority Magazine</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Dr. Christine Schaffner</div>
+  </div>
+</div>
+
+<!-- ======== START HERE ======== -->
+<section class="start-here" id="start">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Start Here</span>
+      <h2 class="section-title">New? Watch These First</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Featured #1 large -->
+    <div class="featured-card" onclick="toggleExpand(this)">
+      <div class="featured-video">
+        <span class="featured-badge-top"><i class="fas fa-fire"></i> &nbsp;Most Watched</span>
+        <div class="featured-play"><i class="fas fa-play"></i></div>
+        <span class="featured-duration">1:42:18</span>
+      </div>
+      <div class="featured-info">
+        <div class="featured-channel">The Life Stylist Podcast</div>
+        <h3>The Technology That Made Luke Storey Rethink Everything</h3>
+        <p class="featured-host">with <strong>Luke Storey</strong></p>
+        <p class="featured-desc">The interview that started it all for the biohacking community. Philipp walks through 20 years of energy healing, the creation of Leela Quantum Tech, and what happens when you put quantum-charged water under a darkfield microscope.</p>
+        <div class="featured-tags">
+          <span class="tag tag-science">Blood Cell Research</span>
+          <span class="tag tag-consciousness">Quantum Field</span>
+          <span class="tag tag-biohacking">Darkfield Microscopy</span>
+        </div>
+      </div>
+      <div class="expand-panel">
+        <div class="ep-label">Timestamped Highlights</div>
+        <ul class="timestamp-list">
+          <li><span class="ts-time">0:04:22</span><span class="ts-text">From T-Mobile VP to quantum energy researcher — the origin story</span></li>
+          <li><span class="ts-time">0:18:45</span><span class="ts-text">What "quantum energy" actually means in plain English</span></li>
+          <li><span class="ts-time">0:32:10</span><span class="ts-text">Dr. Beverly Rubik's blood cell study — 100% of subjects recovered from WiFi damage</span></li>
+          <li><span class="ts-time">0:48:33</span><span class="ts-text">The Emoto Institute didn't endorse it. They LICENSED it.</span></li>
+          <li><span class="ts-time">1:05:17</span><span class="ts-text">Live GDV camera demonstration</span></li>
+          <li><span class="ts-time">1:22:40</span><span class="ts-text">Why skeptics become their best customers</span></li>
+        </ul>
+        <div class="ep-label">Key Q&amp;A</div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-badge">Q</span> How do you explain quantum energy to someone who's never heard of it?</div>
+          <div class="qa-a">Philipp describes it as concentrated life-force energy — the same energy traditional cultures call chi, prana, or orgone. The difference is Leela has figured out how to concentrate and store it, then proved it works with 59+ studies.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-badge">Q</span> What makes Leela different from other energy products?</div>
+          <div class="qa-a">48+ placebo-controlled studies. Most companies in this space have zero. Leela has more peer-reviewed research than some pharmaceutical products.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two smaller picks -->
+    <div class="start-grid">
+      <div class="start-card">
+        <div class="start-card-thumb">
+          <div class="play-sm"><i class="fas fa-play"></i></div>
+          <span class="start-card-dur">1:12:34</span>
+        </div>
+        <div class="start-card-body">
+          <div class="start-card-cat" style="color:var(--cat-biohacking)">Biohacking</div>
+          <h4>Quantum Energy Meets Biohacking: ATP, Blood Cells &amp; Beyond</h4>
+          <div class="start-card-host"><i class="fas fa-microphone" style="color:var(--cyan);font-size:0.6rem;margin-right:4px"></i> Dave Asprey</div>
+        </div>
+      </div>
+      <div class="start-card">
+        <div class="start-card-thumb">
+          <div class="play-sm"><i class="fas fa-play"></i></div>
+          <span class="start-card-dur">1:28:05</span>
+        </div>
+        <div class="start-card-body">
+          <div class="start-card-cat" style="color:var(--cat-science)">Science</div>
+          <h4>59 Studies. Zero Failures. The Most-Tested Wellness Tech Nobody's Heard Of.</h4>
+          <div class="start-card-host"><i class="fas fa-microphone" style="color:var(--cyan);font-size:0.6rem;margin-right:4px"></i> Ben Greenfield</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== INTERSTITIAL #1 ======== -->
+<div class="interstitial">
+  <div class="interstitial-quote">"Name another CEO who has done <span class="cy">47 podcast interviews</span> and brought <span class="rd">peer-reviewed studies</span> to every single one."</div>
+  <div class="interstitial-sub">— We'll wait.</div>
+</div>
+
+<!-- ======== FILTER + GRID ======== -->
+<section class="filter-section" id="archive">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Archive</span>
+      <h2 class="section-title">All Interviews</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="filter-bar">
+      <span class="filter-label">Filter</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="science">Science</button>
+      <button class="filter-btn" data-filter="biohacking">Biohacking</button>
+      <button class="filter-btn" data-filter="consciousness">Consciousness</button>
+      <button class="filter-btn" data-filter="emf">EMF &amp; 5G</button>
+      <button class="filter-btn" data-filter="origin">Origin Story</button>
+      <button class="filter-btn" data-filter="skeptic">Skeptic Interviews</button>
+      <span class="filter-count" id="filterCount">Showing 22 interviews</span>
+    </div>
+  </div>
+</section>
+<section class="grid-section">
+  <div class="container">
+    <div class="interview-grid" id="interviewGrid"></div>
+  </div>
+</section>
+
+<!-- ======== INTERSTITIAL #2 ======== -->
+<div class="interstitial">
+  <div class="interstitial-quote">"82 hours of interviews.<br><span class="cy">Not one host</span> could debunk it."</div>
+  <div class="interstitial-sub">That's not marketing. That's a track record.</div>
+</div>
+
+<!-- ======== STATS BAR ======== -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="fade-in"><div class="stat-num" data-target="59" data-suffix="+">0</div><div class="stat-label">Peer-Reviewed Studies</div></div>
+      <div class="fade-in"><div class="stat-num" data-target="48" data-suffix="+">0</div><div class="stat-label">Placebo-Controlled</div></div>
+      <div class="fade-in"><div class="stat-num" data-target="20" data-suffix="K+">0</div><div class="stat-label">User Testimonials</div></div>
+      <div class="fade-in"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Blood Cell Recovery</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TOPICS ======== -->
+<section class="topics-section" id="topics">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Topics</span>
+      <h2 class="section-title">What Philipp Covers</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-card fade-in"><i class="fas fa-atom"></i><h4>Quantum Energy Science</h4><p>The physics of quantum fields and biofield interactions</p></div>
+      <div class="topic-card fade-in"><i class="fas fa-shield-halved"></i><h4>EMF &amp; 5G Protection</h4><p>Darkfield microscopy proof of WiFi blood cell recovery</p></div>
+      <div class="topic-card fade-in"><i class="fas fa-dna"></i><h4>Biohacking &amp; ATP</h4><p>20-29% ATP increases, mitochondrial optimization</p></div>
+      <div class="topic-card fade-in"><i class="fas fa-brain"></i><h4>Consciousness &amp; Healing</h4><p>Hawkins scale calibration, intention, energy healing</p></div>
+      <div class="topic-card fade-in"><i class="fas fa-droplet"></i><h4>Water &amp; Emoto Research</h4><p>Licensed by the Emoto Institute — not endorsed, LICENSED</p></div>
+      <div class="topic-card fade-in"><i class="fas fa-flask-vial"></i><h4>59+ Studies</h4><p>More peer-reviewed research than most pharma products</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== INTERSTITIAL #3 ======== -->
+<div class="interstitial">
+  <div class="interstitial-quote">"Plants can't be placebo'd.<br>Dogs don't read marketing materials.<br><span class="am">Water doesn't have beliefs.</span>"</div>
+  <div class="interstitial-sub">But they all respond to quantum energy. Every. Single. Time.</div>
+</div>
+
+<!-- ======== DUAL CTA ======== -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-grid">
+      <div class="cta-box cyan-box">
+        <h3>Experience It Yourself</h3>
+        <p>Start your 7-day free trial of Quantum Upgrade. No credit card required. See what 47 podcast hosts already know.</p>
+        <a href="https://quantumupgrade.io" class="cta-btn cta-btn-cyan"><i class="fas fa-bolt"></i> Start Free Trial</a>
+        <div class="cta-sub">7-day free trial · No credit card · Cancel anytime</div>
+      </div>
+      <div class="cta-box amber-box">
+        <h3>Book Philipp for Your Show</h3>
+        <p>Available for podcasts, summits, documentaries, and media interviews. He brings the studies.</p>
+        <button class="cta-btn cta-btn-amber"><i class="fas fa-envelope"></i> Media Inquiries</button>
+        <div class="cta-sub">Podcasts · Summits · Documentaries · Panels</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== ECOSYSTEM FOOTER ======== -->
+<footer class="eco-footer">
+  <div class="eco-inner">
+    <div class="eco-brand">The Quantum Energy Ecosystem</div>
+    <div class="eco-links">
+      <a href="#">WeDidTheScience.com</a>
+      <a href="#">ThankYouLeelaQ.com</a>
+      <a href="#">ILoveLeelaQ.com</a>
+      <a href="#">WhatIsQuantumEnergy.com</a>
+      <a href="#">IDontBelieveYou.com</a>
+      <a href="https://quantumupgrade.io">QuantumUpgrade.io</a>
+      <a href="https://leelaq.com">LeelAQ.com</a>
+    </div>
+    <div class="eco-copy">&copy; 2026 Leela Quantum Tech, Inc. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ── VIDEO DATA ─────────────────────────────────────────────── */
+const videos = [
+  { title:"Can Quantum Energy Frequencies Heal Your Body?", host:"Dave Asprey · The Human Upgrade", views:"15K", duration:"1:12:34", cat:"science", badge:"badge-science",
+    summary:"Dave pushes Philipp on the hard science — and Philipp delivers. They dive into ATP studies showing 20-29% increases, darkfield microscopy results, and why Dave keeps a Quantum Bloc on his desk.",
+    timestamps:[{t:"0:08:12",s:"How Philipp explains quantum energy to skeptics"},{t:"0:22:40",s:"The ATP study — 20-29% increase across all subjects"},{t:"0:41:15",s:"Dave tests a Quantum Bloc live on air"},{t:"0:55:30",s:"Why this is different from every other energy product"}],
+    qa:[{q:"What's the mechanism of action?",a:"Philipp describes it as quantum coherence — the technology creates a field that helps biological systems return to optimal state. 59+ studies show the effects."}]
+  },
+  { title:"Quite Frankly: The Future of Quantum Healing", host:"Frank Elaridi · Quite Frankly", views:"15K", duration:"58:21", cat:"consciousness", badge:"badge-consciousness",
+    summary:"A deep conversation on the intersection of quantum physics, consciousness, and healing technology.",
+    timestamps:[{t:"0:05:00",s:"Philipp's spiritual awakening story"},{t:"0:25:00",s:"How consciousness affects quantum fields"}], qa:[] },
+  { title:"The Hidden Dangers of EMF & How to Protect Yourself", host:"Dave Asprey · The Human Upgrade", views:"12K", duration:"1:04:18", cat:"emf", badge:"badge-emf",
+    summary:"Philipp presents Dr. Beverly Rubik's darkfield microscopy images showing blood cell damage from WiFi and complete recovery with Leela products. 100% of subjects improved.",
+    timestamps:[{t:"0:12:30",s:"Before/after darkfield microscopy images"},{t:"0:28:00",s:"The 100% recovery rate explained"},{t:"0:45:00",s:"Practical EMF protection strategies"}],
+    qa:[{q:"Is 5G really dangerous?",a:"Philipp presents the research showing measurable biological effects from EMF exposure, then shows how Leela's technology creates a protective quantum field that allows blood cells to recover."}]
+  },
+  { title:"From Corporate Executive to Quantum Energy Pioneer", host:"HEAL with Kelly", views:"5.9K", duration:"1:01:12", cat:"origin", badge:"badge-origin",
+    summary:"The definitive origin story. From VP at T-Mobile to founding a quantum energy company after a personal health crisis that conventional medicine couldn't solve.",
+    timestamps:[{t:"0:03:00",s:"The corporate career — VP at T-Mobile"},{t:"0:18:00",s:"The health crisis that changed everything"},{t:"0:35:00",s:"Building Leela Quantum Tech from scratch"}], qa:[] },
+  { title:"The Science of Quantum Energy Fields", host:"Ben Greenfield Life", views:"4.8K", duration:"1:15:42", cat:"science", badge:"badge-science",
+    summary:"Ben's audience demands evidence. Philipp walks through study methodology, placebo-controlled design, and the EEG results showing 77.6% brain stress reduction.",
+    timestamps:[{t:"0:10:00",s:"Study methodology explained"},{t:"0:30:00",s:"EEG brain stress results — 77.6% reduction"},{t:"0:50:00",s:"Why placebo control matters"}], qa:[] },
+  { title:"Biohacking with Quantum Frequencies", host:"Luke Storey · The Life Stylist #489", views:"4.5K", duration:"1:22:10", cat:"biohacking", badge:"badge-biohacking",
+    summary:"Luke and Philipp go deep on practical applications — how to use quantum energy products for sleep, focus, and athletic performance.", timestamps:[], qa:[] },
+  { title:"Protecting Your Family from EMF Radiation", host:"Luke Storey · The Life Stylist #512", views:"4.2K", duration:"1:08:33", cat:"emf", badge:"badge-emf",
+    summary:"Practical guide for parents: how EMF affects children, what the studies show, and how to create a protected home environment.", timestamps:[], qa:[] },
+  { title:"Raising Consciousness Through Quantum Technology", host:"Sahara Rose · Highest Self", views:"3.9K", duration:"55:18", cat:"consciousness", badge:"badge-consciousness",
+    summary:"Philipp goes deeper on the Hawkins Map of Consciousness, what it means for a product to calibrate at 8,000, and how 'Leela' — Sanskrit for Divine Play — represents the philosophy.", timestamps:[], qa:[] },
+  { title:"Quantum Energy & the Future of Wellness", host:"BiohackingCongress · Keynote 2024", views:"3.4K", duration:"38:12", cat:"biohacking", badge:"badge-biohacking",
+    summary:"Philipp's keynote presentation covering the full Leela Quantum Tech story, product line, and vision for the future of frequency-based wellness.", timestamps:[], qa:[] },
+  { title:"How I Left the Corporate World to Follow My Mission", host:"Authority Magazine", views:"3.2K", duration:"Read", cat:"origin", badge:"badge-origin",
+    summary:"A written interview covering Philipp's transition from the telecom industry to quantum energy entrepreneurship.", timestamps:[], qa:[] },
+  { title:"EMF, 5G & What You Need to Know", host:"The Wellness Mama Podcast", views:"2.8K", duration:"52:14", cat:"emf", badge:"badge-emf",
+    summary:"Philipp explains EMF risks in family-friendly terms and provides actionable steps parents can take immediately.", timestamps:[], qa:[] },
+  { title:"Water Structuring & Quantum Coherence", host:"Ben Greenfield Life #2", views:"2.4K", duration:"1:10:05", cat:"science", badge:"badge-science",
+    summary:"Deep dive into the Emoto Institute partnership — they didn't just endorse the technology, they LICENSED it. Water crystal photography results discussed in detail.", timestamps:[], qa:[] },
+  { title:"Frequency Medicine: The Next Frontier", host:"Dr. Christine Schaffner", views:"2.1K", duration:"59:44", cat:"science", badge:"badge-science",
+    summary:"Two practitioners discuss frequency-based healing from both the scientific and clinical perspectives.", timestamps:[], qa:[] },
+  { title:"Healing Trauma with Frequency & Intention", host:"The Mindvalley Podcast", views:"1.8K", duration:"42:18", cat:"consciousness", badge:"badge-consciousness",
+    summary:"Philipp connects quantum energy to emotional healing, discussing how trauma is stored in the biofield and how frequency can help release it.", timestamps:[], qa:[] },
+  { title:"Prove It: A Skeptic's Deep Dive Into Quantum Energy", host:"Science Uncensored", views:"1.7K", duration:"1:34:08", cat:"skeptic", badge:"badge-skeptic",
+    summary:"The host came in swinging — and left rethinking everything. Every objection gets addressed with a study. Every 'but what about...' gets answered with data.",
+    timestamps:[{t:"0:05:00",s:"Host lays out his skepticism"},{t:"0:20:00",s:"Philipp's response: 'Let's go study by study'"},{t:"0:45:00",s:"The plant experiments — plants can't be placebo'd"},{t:"1:10:00",s:"Host admits he can't debunk the blood cell research"}],
+    qa:[{q:"Isn't this just the placebo effect?",a:"48+ placebo-controlled studies. Plants showed growth improvements. Water showed structural changes. Cells showed ATP increases. None of these have beliefs or expectations."}]
+  },
+  { title:"From Skeptic to Believer: Quantum Energy Explained", host:"The Broken Brain Podcast", views:"1.4K", duration:"1:03:21", cat:"skeptic", badge:"badge-skeptic",
+    summary:"Host shares his own journey from dismissing quantum energy to testing the products and seeing results he couldn't explain away.", timestamps:[], qa:[] },
+  { title:"How Quantum Tech Is Changing Biohacking Forever", host:"Upgrade Labs Podcast", views:"1.5K", duration:"50:33", cat:"biohacking", badge:"badge-biohacking",
+    summary:"Recorded at Dave Asprey's Upgrade Labs facility, this episode shows Philipp demonstrating products with real-time biometric monitoring.", timestamps:[], qa:[] },
+  { title:"The Real Science of Quantum Healing", host:"SuperHuman Summit · Keynote", views:"1.7K", duration:"35:09", cat:"science", badge:"badge-science",
+    summary:"Conference keynote presenting the full research portfolio — 59+ studies summarized in 35 minutes with visual evidence.", timestamps:[], qa:[] },
+  { title:"Optimizing Your Sleep with Quantum Fields", host:"The Optimized Lifestyle", views:"1.9K", duration:"47:22", cat:"biohacking", badge:"badge-biohacking",
+    summary:"Practical episode focused on sleep improvement — HRV data, sleep tracking results, and how to set up quantum energy in your bedroom.", timestamps:[], qa:[] },
+  { title:"Building a Mission-Driven Tech Company", host:"Conscious Entrepreneur Podcast", views:"1.2K", duration:"44:16", cat:"origin", badge:"badge-origin",
+    summary:"The business story — funding, team building, scaling a quantum energy company in a skeptical market.", timestamps:[], qa:[] },
+  { title:"5G, EMF & Your Children: A Parent's Guide", host:"The Model Health Show", views:"1.1K", duration:"56:48", cat:"emf", badge:"badge-emf",
+    summary:"Focused on child protection — the developing brain's sensitivity to EMF and practical solutions for schools and bedrooms.", timestamps:[], qa:[] },
+  { title:"Quantum Upgrade: Frequencies for Your Home", host:"Sahara Rose · Highest Self #2", views:"3.6K", duration:"48:27", cat:"consciousness", badge:"badge-consciousness",
+    summary:"Philipp introduces the Quantum Upgrade subscription service — how frequency streaming works, the 7-day free trial, and early user results.", timestamps:[], qa:[] }
+];
+
+const catLabels = {
+  science:"Science", biohacking:"Biohacking", consciousness:"Consciousness",
+  emf:"EMF & 5G", origin:"Origin Story", skeptic:"Skeptic Interview"
+};
+const catColors = {
+  science:"var(--cat-science)", biohacking:"var(--cat-biohacking)",
+  consciousness:"var(--cat-consciousness)", emf:"var(--cat-emf)",
+  origin:"var(--cat-origin)", skeptic:"var(--cat-skeptic)"
+};
+
+/* ── RENDER GRID ────────────────────────────────────────────── */
+const grid = document.getElementById('interviewGrid');
+videos.forEach((v, i) => {
+  const hasContent = (v.timestamps && v.timestamps.length > 0) || (v.qa && v.qa.length > 0);
+  const card = document.createElement('div');
+  card.className = 'v-card fade-in';
+  card.dataset.category = v.cat;
+  if (hasContent) card.onclick = function(){ toggleCardExpand(this); };
+
+  let expandHTML = '';
+  if (v.summary || hasContent) {
+    expandHTML = '<div class="v-expand">';
+    if (v.summary) expandHTML += '<div class="ep-label">Summary</div><p class="v-expand-summary">' + v.summary + '</p>';
+    if (v.timestamps && v.timestamps.length) {
+      expandHTML += '<div class="ep-label">Key Moments</div><ul class="timestamp-list">';
+      v.timestamps.forEach(ts => { expandHTML += '<li><span class="ts-time">' + ts.t + '</span><span class="ts-text">' + ts.s + '</span></li>'; });
+      expandHTML += '</ul>';
+    }
+    if (v.qa && v.qa.length) {
+      expandHTML += '<div class="ep-label">Q&amp;A</div>';
+      v.qa.forEach(q => { expandHTML += '<div class="qa-item"><div class="qa-q"><span class="qa-badge">Q</span>' + q.q + '</div><div class="qa-a">' + q.a + '</div></div>'; });
+    }
+    expandHTML += '</div>';
+  }
+
+  card.innerHTML =
+    '<div class="v-thumb">' +
+      '<span class="v-cat-badge ' + v.badge + '">' + catLabels[v.cat] + '</span>' +
+      '<div class="v-play"><i class="fas fa-play"></i></div>' +
+      '<span class="v-dur">' + v.duration + '</span>' +
+    '</div>' +
+    '<div class="v-body">' +
+      '<div class="v-body-cat" style="color:' + catColors[v.cat] + '">' + catLabels[v.cat] + '</div>' +
+      '<h3>' + v.title + '</h3>' +
+      '<div class="v-host"><i class="fas fa-microphone"></i> ' + v.host + '</div>' +
+      '<div class="v-footer">' +
+        '<span class="v-views"><i class="fas fa-eye"></i> ' + v.views + ' views</span>' +
+        (hasContent ? '<span class="v-expand-hint">Click for notes ↓</span>' : '') +
+      '</div>' +
+    '</div>' +
+    expandHTML;
+
+  grid.appendChild(card);
+});
+
+/* ── EXPAND/COLLAPSE ────────────────────────────────────────── */
+function toggleExpand(el) {
+  const panel = el.querySelector('.expand-panel');
+  if (panel) panel.classList.toggle('open');
+}
+function toggleCardExpand(el) {
+  const panel = el.querySelector('.v-expand');
+  if (panel) panel.classList.toggle('open');
+}
+
+/* ── FILTERS ────────────────────────────────────────────────── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let count = 0;
+    document.querySelectorAll('.v-card').forEach(card => {
+      if (f === 'all' || card.dataset.category === f) {
+        card.classList.remove('hidden'); count++;
+      } else { card.classList.add('hidden'); }
+    });
+    document.getElementById('filterCount').textContent = 'Showing ' + count + ' interview' + (count !== 1 ? 's' : '');
+  });
+});
+
+/* ── ANIMATED COUNTERS ──────────────────────────────────────── */
+function animateCounters(els) {
+  els.forEach(el => {
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    const dur = 1800;
+    const step = Math.max(1, Math.ceil(dur / target));
+    let current = 0;
+    const timer = setInterval(() => {
+      current++;
+      el.textContent = current + suffix;
+      if (current >= target) clearInterval(timer);
+    }, step);
+  });
+}
+
+/* ── INTERSECTION OBSERVERS ─────────────────────────────────── */
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+// Hero counters
+let heroCounterDone = false;
+const heroObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !heroCounterDone) {
+      heroCounterDone = true;
+      animateCounters(document.querySelectorAll('.hero-stat-num'));
+    }
+  });
+}, { threshold: 0.3 });
+heroObs.observe(document.querySelector('.hero'));
+
+// Stats bar counters
+let statsCounterDone = false;
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !statsCounterDone) {
+      statsCounterDone = true;
+      animateCounters(document.querySelectorAll('.stat-num'));
+    }
+  });
+}, { threshold: 0.3 });
+statsObs.observe(document.querySelector('.stats-bar'));
+
+/* ── NAV SCROLL ─────────────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+</script>
+</body>
+</html>
