@@ -1323,7 +1323,10 @@ function openEpisode(i){
   const inner=document.getElementById('episodeInner');
   
   let tsHTML='';
-  v.timestamps.forEach(t=>{tsHTML+=`<li><span class="ts-time">${t.t}</span><span class="ts-text">${t.s}</span></li>`});
+  v.timestamps.forEach(t=>{
+    const hasTime = t.t && t.t !== 'unknown' && t.t !== 'N/A' && t.t !== '';
+    tsHTML+=`<li>${hasTime?`<span class="ts-time">${t.t}</span>`:`<span class="ts-time" style="color:var(--cyan);min-width:20px">▸</span>`}<span class="ts-text">${t.s}</span></li>`;
+  });
   
   let qaHTML='';
   v.qa.forEach(q=>{qaHTML+=`<div class="qa-item"><div class="qa-q"><span class="qa-badge">Q</span>${q.q}</div><div class="qa-a">${q.a}</div></div>`});
