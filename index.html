@@ -7,882 +7,274 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-/* ============================================================
-   VARIABLES & RESET
-   ============================================================ */
 :root {
-  --bg: #06080c;
-  --bg-elevated: #0d1017;
-  --bg-card: #111620;
-  --bg-card-hover: #161d2a;
-  --cyan: #00e8d0;
-  --cyan-dim: rgba(0,232,208,0.10);
-  --cyan-glow: rgba(0,232,208,0.20);
-  --amber: #ffb347;
-  --amber-dim: rgba(255,179,71,0.10);
-  --red: #ff4d6a;
-  --text: #eef0f4;
-  --text-2: #8b919c;
-  --text-3: #4a4f5c;
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(0,232,208,0.25);
-  --font-display: 'Unbounded', sans-serif;
-  --font-body: 'Outfit', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --bg:#06080c;--bg2:#0d1017;--bg-card:#111620;--bg-card-hover:#161d2a;
+  --cyan:#00e8d0;--cyan-dim:rgba(0,232,208,0.10);--cyan-glow:rgba(0,232,208,0.20);
+  --amber:#ffb347;--red:#ff4d6a;
+  --text:#eef0f4;--text-2:#8b919c;--text-3:#4a4f5c;
+  --border:rgba(255,255,255,0.06);--border-hover:rgba(0,232,208,0.25);
+  --font-d:'Unbounded',sans-serif;--font-b:'Outfit',sans-serif;--font-m:'IBM Plex Mono',monospace;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --cat-science:#648cff;--cat-biohacking:#00c896;--cat-consciousness:#b464ff;--cat-emf:#ff6464;--cat-origin:#ffb347;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:var(--cyan);text-decoration:none}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  /* category colors */
-  --cat-science: #648cff;
-  --cat-biohacking: #00c896;
-  --cat-consciousness: #b464ff;
-  --cat-emf: #ff6464;
-  --cat-origin: #ffb347;
-  --cat-skeptic: #00e8d0;
-}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 0;background:rgba(6,8,12,0.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:0 32px}
+.nav-brand{font-family:var(--font-d);font-size:0.85rem;font-weight:700;color:var(--cyan)}
+.nav-brand span{color:var(--text-2);font-weight:400;font-family:var(--font-b);font-size:0.8rem}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--text-2);font-size:0.8rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;border-radius:100px;background:var(--cyan);color:var(--bg);font-weight:600;font-size:0.78rem;transition:all 0.3s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px var(--cyan-glow);color:var(--bg)}
+@media(max-width:768px){.nav-links{display:none}}
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--cyan); text-decoration: none; }
-.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+/* HERO */
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:140px 0 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 30% 20%,rgba(0,232,208,0.06) 0%,transparent 70%),radial-gradient(ellipse 40% 50% at 75% 70%,rgba(100,140,255,0.04) 0%,transparent 60%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.hero-eyebrow{font-family:var(--font-m);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .7s .1s forwards}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--cyan)}
+.hero h1{font-family:var(--font-d);font-size:clamp(3rem,6.5vw,5.5rem);font-weight:900;line-height:1.0;letter-spacing:-1.5px;margin-bottom:24px;opacity:0;animation:fadeUp .7s .25s forwards}
+.hero h1 .accent{color:var(--cyan)}
+.hero-sub{font-size:1.05rem;color:var(--text-2);line-height:1.7;max-width:540px;margin-bottom:36px;opacity:0;animation:fadeUp .7s .4s forwards}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-stats{display:flex;gap:40px;opacity:0;animation:fadeUp .7s .55s forwards}
+.hero-stat-num{font-family:var(--font-d);font-size:2rem;font-weight:800}
+.hero-stat-label{font-size:0.72rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
 
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 16px 0;
-  background: rgba(6,8,12,0.7);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--border);
-  transition: padding 0.3s var(--ease);
-}
-.nav.scrolled { padding: 10px 0; }
-.nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 1280px; margin: 0 auto; padding: 0 32px;
-}
-.nav-brand {
-  font-family: var(--font-display);
-  font-size: 0.85rem; font-weight: 700;
-  color: var(--cyan);
-  letter-spacing: 0.5px;
-}
-.nav-brand span { color: var(--text-2); font-weight: 400; font-family: var(--font-body); font-size: 0.8rem; }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a {
-  color: var(--text-2); font-size: 0.8rem; font-weight: 500;
-  letter-spacing: 0.5px; transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--text); }
-.nav-cta {
-  padding: 8px 20px; border-radius: 100px;
-  background: var(--cyan); color: var(--bg);
-  font-weight: 600; font-size: 0.78rem;
-  letter-spacing: 0.3px; transition: all 0.3s var(--ease);
-}
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--cyan-glow); color: var(--bg); }
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-}
+/* TICKER */
+.ticker{padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);overflow:hidden}
+.ticker-track{display:flex;align-items:center;gap:48px;animation:tickerScroll 30s linear infinite;width:max-content}
+.ticker-item{flex-shrink:0;white-space:nowrap;font-size:0.85rem;font-weight:500;color:var(--text-3);letter-spacing:0.5px;display:flex;align-items:center;gap:10px}
+.ticker-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);opacity:0.4}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  position: relative; min-height: 92vh;
-  display: flex; align-items: center;
-  padding: 140px 0 80px;
-  overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 50% 60% at 30% 20%, rgba(0,232,208,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 50% at 75% 70%, rgba(100,140,255,0.04) 0%, transparent 60%);
-  pointer-events: none;
-}
-.hero::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 200px;
-  background: linear-gradient(transparent, var(--bg));
-  pointer-events: none;
-}
+/* SECTION HEADERS */
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:40px}
+.section-tag{font-family:var(--font-m);font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--cyan);padding:4px 12px;border-radius:4px;font-weight:600}
+.section-title{font-family:var(--font-d);font-size:1.3rem;font-weight:700}
+.section-line{flex:1;height:1px;background:var(--border)}
 
-/* Grain overlay */
-.grain {
-  position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* INTERSTITIAL */
+.interstitial{padding:80px 32px;text-align:center;position:relative}
+.interstitial::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(0,232,208,0.03),transparent)}
+.interstitial-quote{position:relative;z-index:1;font-family:var(--font-d);font-size:clamp(1.3rem,3vw,2.2rem);font-weight:800;line-height:1.25;max-width:900px;margin:0 auto 16px;color:var(--cyan)}
+.interstitial-sub{font-family:var(--font-m);font-size:0.8rem;color:var(--text-3);letter-spacing:1px}
 
-.hero-content {
-  position: relative; z-index: 2;
-  max-width: 720px;
-}
-.hero-eyebrow {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  letter-spacing: 3px; text-transform: uppercase;
-  color: var(--cyan); margin-bottom: 20px;
-  display: flex; align-items: center; gap: 12px;
-  opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
-}
-.hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6.5vw, 5.5rem);
-  font-weight: 900; line-height: 1.0;
-  letter-spacing: -1.5px; margin-bottom: 24px;
-  opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
-}
-.hero h1 .accent { color: var(--cyan); }
-.hero-sub {
-  font-size: 1.1rem; color: var(--text-2);
-  line-height: 1.7; max-width: 540px; margin-bottom: 36px;
-  opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
-}
-.hero-sub strong { color: var(--text); font-weight: 600; }
+/* INTERVIEW CARDS */
+.grid-section{padding:40px 0 80px}
+.interview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:1024px){.interview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.interview-grid{grid-template-columns:1fr}}
 
-.hero-stats {
-  display: flex; gap: 40px;
-  opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
-}
-.hero-stat-num {
-  font-family: var(--font-display); font-size: 2rem;
-  font-weight: 800; color: var(--text);
-}
-.hero-stat-label {
-  font-size: 0.72rem; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px;
-}
+.v-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s var(--ease)}
+.v-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 14px 44px rgba(0,0,0,0.35),0 0 20px var(--cyan-dim)}
 
-/* ============================================================
-   AS SEEN ON TICKER
-   ============================================================ */
-.ticker {
-  padding: 28px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-elevated);
-  overflow: hidden;
-}
-.ticker-track {
-  display: flex; align-items: center; gap: 48px;
-  animation: tickerScroll 35s linear infinite;
-  width: max-content;
-}
-.ticker-item {
-  flex-shrink: 0; white-space: nowrap;
-  font-size: 0.85rem; font-weight: 500;
-  color: var(--text-3); letter-spacing: 0.5px;
-  display: flex; align-items: center; gap: 10px;
-  transition: color 0.3s;
-}
-.ticker-item:hover { color: var(--text-2); }
-.ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); opacity: 0.4; }
-@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.v-thumb{position:relative;aspect-ratio:16/9;background:#0a0e16;overflow:hidden}
+.v-thumb img{width:100%;height:100%;object-fit:cover;opacity:0.8;transition:opacity .3s}
+.v-card:hover .v-thumb img{opacity:1}
+.v-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(0,232,208,0.85);display:flex;align-items:center;justify-content:center;opacity:0;transform:translate(-50%,-50%) scale(0.8);transition:all .25s}
+.v-card:hover .v-play{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.v-play i{color:var(--bg);font-size:1rem;margin-left:2px}
+.v-cat-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:50px;font-size:0.58rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase}
+.badge-science{background:rgba(100,140,255,0.2);color:var(--cat-science);border:1px solid rgba(100,140,255,0.25)}
+.badge-biohacking{background:rgba(0,200,150,0.2);color:var(--cat-biohacking);border:1px solid rgba(0,200,150,0.25)}
+.badge-consciousness{background:rgba(180,100,255,0.2);color:var(--cat-consciousness);border:1px solid rgba(180,100,255,0.25)}
+.badge-emf{background:rgba(255,100,100,0.2);color:var(--cat-emf);border:1px solid rgba(255,100,100,0.25)}
+.v-dur{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.8);padding:3px 8px;border-radius:3px;font-family:var(--font-m);font-size:0.65rem;color:var(--text-2)}
+.v-body{padding:18px 20px 16px}
+.v-cat-label{font-family:var(--font-m);font-size:0.56rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.v-body h3{font-family:var(--font-d);font-size:0.8rem;font-weight:700;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v-host{font-size:0.78rem;color:var(--text-2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.v-host i{color:var(--cyan);font-size:0.55rem}
+.v-expand-hint{font-family:var(--font-m);font-size:0.6rem;color:var(--text-3);transition:color .2s}
+.v-card:hover .v-expand-hint{color:var(--cyan)}
 
-/* ============================================================
-   START HERE — CURATED TOP 3
-   ============================================================ */
-.start-here { padding: 80px 0 60px; }
-.section-header {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
-}
-.section-tag {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--bg); background: var(--cyan);
-  padding: 4px 12px; border-radius: 4px; font-weight: 600;
-}
-.section-title {
-  font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
-}
-.section-line { flex: 1; height: 1px; background: var(--border); }
+/* EXPANDED EPISODE VIEW */
+.episode-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(6,8,12,0.92);backdrop-filter:blur(12px);overflow-y:auto;padding:60px 20px}
+.episode-overlay.open{display:block}
+.episode-inner{max-width:960px;margin:0 auto}
+.episode-close{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--text-2);font-size:1.5rem;cursor:pointer;z-index:10;transition:color .2s}
+.episode-close:hover{color:var(--cyan)}
 
-/* Featured large card */
-.featured-card {
-  display: grid; grid-template-columns: 1.3fr 1fr;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 16px; overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  margin-bottom: 24px; cursor: pointer;
-}
-.featured-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px var(--cyan-dim);
-}
-.featured-video {
-  position: relative; aspect-ratio: 16/9;
-  background: linear-gradient(135deg, #131a28, #0a0e16);
-  display: flex; align-items: center; justify-content: center;
-}
-.featured-play {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: var(--cyan); display: flex;
-  align-items: center; justify-content: center;
-  box-shadow: 0 0 40px var(--cyan-glow);
-  transition: transform 0.3s;
-}
-.featured-card:hover .featured-play { transform: scale(1.1); }
-.featured-play i { color: var(--bg); font-size: 1.4rem; margin-left: 3px; }
-.featured-badge-top {
-  position: absolute; top: 14px; left: 14px;
-  background: linear-gradient(135deg, var(--cyan), #00b8a9);
-  color: var(--bg); font-size: 0.6rem; font-weight: 700;
-  padding: 4px 12px; border-radius: 50px;
-  letter-spacing: 1px; text-transform: uppercase;
-}
-.featured-duration {
-  position: absolute; bottom: 14px; right: 14px;
-  background: rgba(0,0,0,0.75); padding: 3px 10px;
-  border-radius: 4px; font-family: var(--font-mono);
-  font-size: 0.72rem; color: var(--text-2);
-}
-.featured-info { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-.featured-channel {
-  font-family: var(--font-mono); font-size: 0.68rem;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--cyan); margin-bottom: 12px;
-}
-.featured-info h3 {
-  font-family: var(--font-display); font-size: 1.35rem;
-  font-weight: 700; line-height: 1.25; margin-bottom: 12px;
-}
-.featured-host { font-size: 0.9rem; color: var(--text-2); margin-bottom: 16px; }
-.featured-host strong { color: var(--text); }
-.featured-desc {
-  font-size: 0.9rem; color: var(--text-2);
-  line-height: 1.7; margin-bottom: 20px;
-}
-.featured-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-.tag {
-  padding: 4px 12px; border-radius: 4px;
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.3px;
-}
-.tag-science { background: rgba(100,140,255,0.12); color: var(--cat-science); }
-.tag-biohacking { background: rgba(0,200,150,0.12); color: var(--cat-biohacking); }
-.tag-consciousness { background: rgba(180,100,255,0.12); color: var(--cat-consciousness); }
-.tag-emf { background: rgba(255,100,100,0.12); color: var(--cat-emf); }
-.tag-origin { background: rgba(255,179,71,0.12); color: var(--cat-origin); }
-.tag-skeptic { background: rgba(0,232,208,0.12); color: var(--cat-skeptic); }
+.ep-video{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:24px;background:#000}
+.ep-video iframe{width:100%;height:100%;border:none}
 
-/* Expandable panel inside cards */
-.expand-panel { display: none; padding: 0 40px 32px; }
-.expand-panel.open { display: block; }
-.ep-label {
-  font-family: var(--font-mono); font-size: 0.62rem;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--cyan); margin: 20px 0 12px;
-}
-.timestamp-list { list-style: none; }
-.timestamp-list li {
-  display: flex; gap: 14px; padding: 8px 0;
-  border-bottom: 1px solid var(--border); font-size: 0.82rem;
-}
-.timestamp-list li:last-child { border-bottom: none; }
-.ts-time { font-family: var(--font-mono); color: var(--cyan); min-width: 54px; font-size: 0.75rem; }
-.ts-text { color: var(--text-2); }
-.qa-item { margin-bottom: 16px; }
-.qa-q {
-  font-weight: 600; color: var(--text); font-size: 0.88rem; margin-bottom: 6px;
-  display: flex; align-items: flex-start; gap: 10px;
-}
-.qa-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 22px; height: 22px; background: var(--cyan);
-  color: var(--bg); border-radius: 4px; font-size: 0.62rem;
-  font-weight: 700; font-family: var(--font-mono); flex-shrink: 0;
-}
-.qa-a { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; padding-left: 32px; }
+.ep-meta{margin-bottom:24px}
+.ep-meta h2{font-family:var(--font-d);font-size:clamp(1.2rem,3vw,1.8rem);font-weight:800;margin-bottom:8px}
+.ep-meta-host{font-size:0.95rem;color:var(--text-2);margin-bottom:4px}
+.ep-meta-host strong{color:var(--text)}
+.ep-meta-hook{font-size:0.9rem;color:var(--cyan);font-style:italic;margin-bottom:16px}
+.ep-summary{font-size:0.95rem;color:var(--text-2);line-height:1.7;margin-bottom:24px}
 
-@media (max-width: 900px) {
-  .featured-card { grid-template-columns: 1fr; }
-  .featured-info { padding: 24px; }
-  .expand-panel { padding: 0 24px 24px; }
-}
+/* TABS */
+.ep-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0}
+.ep-tab{padding:10px 20px;background:none;border:none;color:var(--text-3);font-family:var(--font-b);font-size:0.82rem;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px}
+.ep-tab:hover{color:var(--text-2)}
+.ep-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+.ep-tab-panel{display:none}
+.ep-tab-panel.active{display:block}
 
-/* Top 3 sub-grid */
-.start-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-@media (max-width: 768px) { .start-grid { grid-template-columns: 1fr; } }
+/* Tab content styles */
+.ts-list{list-style:none}
+.ts-list li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.85rem;cursor:pointer;transition:background .2s}
+.ts-list li:hover{background:rgba(0,232,208,0.03)}
+.ts-list li:last-child{border-bottom:none}
+.ts-time{font-family:var(--font-m);color:var(--cyan);min-width:56px;font-size:0.75rem;padding-top:2px}
+.ts-text{color:var(--text-2)}
 
-.start-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; overflow: hidden;
-  display: grid; grid-template-columns: 180px 1fr;
-  cursor: pointer; transition: all 0.3s var(--ease);
-}
-.start-card:hover {
-  border-color: var(--border-hover); transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-}
-.start-card-thumb {
-  aspect-ratio: 16/12; background: linear-gradient(135deg, #131a28, #0a0e16);
-  display: flex; align-items: center; justify-content: center; position: relative;
-}
-.start-card-thumb .play-sm {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(0,232,208,0.8); display: flex;
-  align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.2s;
-}
-.start-card:hover .play-sm { opacity: 1; }
-.play-sm i { color: var(--bg); font-size: 0.8rem; margin-left: 2px; }
-.start-card-body { padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; }
-.start-card-cat {
-  font-family: var(--font-mono); font-size: 0.58rem;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.start-card-body h4 {
-  font-family: var(--font-display); font-size: 0.82rem;
-  font-weight: 700; line-height: 1.3; margin-bottom: 6px;
-}
-.start-card-host { font-size: 0.78rem; color: var(--text-2); }
-.start-card-dur {
-  position: absolute; bottom: 8px; right: 8px;
-  background: rgba(0,0,0,0.75); padding: 2px 7px;
-  border-radius: 3px; font-family: var(--font-mono);
-  font-size: 0.62rem; color: var(--text-2);
-}
-@media (max-width: 600px) {
-  .start-card { grid-template-columns: 1fr; }
-  .start-card-thumb { aspect-ratio: 16/9; }
-}
+.qa-item{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.qa-item:last-child{border-bottom:none}
+.qa-q{font-weight:600;color:var(--text);font-size:0.9rem;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.qa-badge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;background:var(--cyan);color:var(--bg);border-radius:4px;font-size:0.62rem;font-weight:700;font-family:var(--font-m);flex-shrink:0}
+.qa-a{font-size:0.88rem;color:var(--text-2);line-height:1.7;padding-left:34px}
 
-/* ============================================================
-   BRASS BALLS INTERSTITIAL
-   ============================================================ */
-.interstitial {
-  padding: 80px 32px; text-align: center;
-  position: relative;
-}
-.interstitial::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,232,208,0.03), transparent);
-}
-.interstitial-quote {
-  position: relative; z-index: 1;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
-  font-weight: 800; line-height: 1.2;
-  max-width: 900px; margin: 0 auto 16px;
-}
-.interstitial-quote .cy { color: var(--cyan); }
-.interstitial-quote .rd { color: var(--red); }
-.interstitial-quote .am { color: var(--amber); }
-.interstitial-sub {
-  font-family: var(--font-mono); font-size: 0.8rem;
-  color: var(--text-3); letter-spacing: 1px;
-}
+.study-item{padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:12px}
+.study-item:last-child{border-bottom:none}
+.study-icon{width:28px;height:28px;border-radius:6px;background:rgba(100,140,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.study-icon i{color:var(--cat-science);font-size:0.7rem}
+.study-info h4{font-size:0.85rem;font-weight:600;margin-bottom:3px}
+.study-desc{font-size:0.8rem;color:var(--text-2);line-height:1.5}
+.study-result{font-size:0.78rem;color:var(--cyan);font-weight:500;margin-top:4px}
 
-/* ============================================================
-   FILTER BAR
-   ============================================================ */
-.filter-section { padding: 60px 0 0; }
-.filter-bar {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  align-items: center; margin-bottom: 36px;
-  padding-bottom: 20px; border-bottom: 1px solid var(--border);
-}
-.filter-label {
-  font-family: var(--font-mono); font-size: 0.62rem;
-  color: var(--text-3); letter-spacing: 2px;
-  text-transform: uppercase; margin-right: 8px;
-}
-.filter-btn {
-  padding: 8px 18px; border-radius: 100px;
-  border: 1px solid var(--border); background: transparent;
-  color: var(--text-2); font-family: var(--font-body);
-  font-size: 0.8rem; font-weight: 500; cursor: pointer;
-  transition: all 0.2s;
-}
-.filter-btn:hover { border-color: var(--border-hover); color: var(--text); }
-.filter-btn.active {
-  background: var(--cyan); border-color: var(--cyan);
-  color: var(--bg); font-weight: 600;
-}
-.filter-count {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--text-3); margin-left: auto;
-}
+.product-item{padding:12px 0;border-bottom:1px solid var(--border)}
+.product-item:last-child{border-bottom:none}
+.product-name{font-weight:600;font-size:0.88rem;margin-bottom:4px}
+.product-desc{font-size:0.82rem;color:var(--text-2);line-height:1.6}
 
-/* ============================================================
-   INTERVIEW GRID
-   ============================================================ */
-.grid-section { padding: 0 0 80px; }
-.interview-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-}
-@media (max-width: 1024px) { .interview-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px) { .interview-grid { grid-template-columns: 1fr; } }
+/* CTA */
+.cta-section{padding:80px 0}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:768px){.cta-grid{grid-template-columns:1fr}}
+.cta-box{padding:44px 36px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-1px;left:25%;right:25%;height:2px}
+.cta-box.cb1::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.cta-box.cb2::before{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.cta-box h3{font-family:var(--font-d);font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.cta-box p{color:var(--text-2);font-size:0.88rem;margin-bottom:20px;line-height:1.6}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 32px;border-radius:100px;font-family:var(--font-b);font-weight:600;font-size:0.85rem;border:none;cursor:pointer;transition:all .3s;letter-spacing:0.3px}
+.btn-cyan{background:var(--cyan);color:var(--bg)}
+.btn-cyan:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--cyan-glow);color:var(--bg)}
+.btn-amber{background:var(--amber);color:var(--bg)}
+.btn-amber:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,179,71,0.2);color:var(--bg)}
+.cta-sub{margin-top:10px;font-size:0.72rem;color:var(--text-3)}
 
-.v-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; overflow: hidden; cursor: pointer;
-  transition: all 0.3s var(--ease);
-}
-.v-card:hover {
-  border-color: var(--border-hover); transform: translateY(-4px);
-  box-shadow: 0 14px 44px rgba(0,0,0,0.35), 0 0 20px var(--cyan-dim);
-}
-.v-card.hidden { display: none; }
+/* FOOTER */
+.eco-footer{padding:36px 32px;border-top:1px solid var(--border)}
+.eco-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.eco-brand{font-family:var(--font-d);font-size:0.65rem;font-weight:600;color:var(--text-3);letter-spacing:1px;text-transform:uppercase}
+.eco-links{display:flex;gap:20px;flex-wrap:wrap}
+.eco-links a{font-size:0.75rem;color:var(--text-3);transition:color .2s}
+.eco-links a:hover{color:var(--cyan)}
+.eco-copy{width:100%;text-align:center;margin-top:16px;font-size:0.65rem;color:var(--text-3);padding-top:16px;border-top:1px solid var(--border)}
 
-.v-thumb {
-  position: relative; aspect-ratio: 16/9;
-  background: linear-gradient(135deg, #131a28, #0a0e16);
-  display: flex; align-items: center; justify-content: center;
-}
-.v-play {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: rgba(0,232,208,0.8);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(0.8);
-  transition: all 0.25s;
-}
-.v-card:hover .v-play { opacity: 1; transform: scale(1); }
-.v-play i { color: var(--bg); font-size: 0.9rem; margin-left: 2px; }
-.v-cat-badge {
-  position: absolute; top: 10px; left: 10px;
-  padding: 3px 10px; border-radius: 50px;
-  font-size: 0.58rem; font-weight: 700;
-  letter-spacing: 0.8px; text-transform: uppercase;
-}
-.badge-science { background: rgba(100,140,255,0.15); color: var(--cat-science); border: 1px solid rgba(100,140,255,0.2); }
-.badge-biohacking { background: rgba(0,200,150,0.15); color: var(--cat-biohacking); border: 1px solid rgba(0,200,150,0.2); }
-.badge-consciousness { background: rgba(180,100,255,0.15); color: var(--cat-consciousness); border: 1px solid rgba(180,100,255,0.2); }
-.badge-emf { background: rgba(255,100,100,0.15); color: var(--cat-emf); border: 1px solid rgba(255,100,100,0.2); }
-.badge-origin { background: rgba(255,179,71,0.15); color: var(--cat-origin); border: 1px solid rgba(255,179,71,0.2); }
-.badge-skeptic { background: rgba(0,232,208,0.15); color: var(--cat-skeptic); border: 1px solid rgba(0,232,208,0.2); }
-
-.v-dur {
-  position: absolute; bottom: 10px; right: 10px;
-  background: rgba(0,0,0,0.75); padding: 3px 8px;
-  border-radius: 3px; font-family: var(--font-mono);
-  font-size: 0.65rem; color: var(--text-2);
-}
-.v-body { padding: 18px 20px 20px; }
-.v-body-cat {
-  font-family: var(--font-mono); font-size: 0.58rem;
-  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;
-}
-.v-body h3 {
-  font-family: var(--font-display); font-size: 0.85rem;
-  font-weight: 700; line-height: 1.3; margin-bottom: 6px;
-  display: -webkit-box; -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-.v-host {
-  font-size: 0.78rem; color: var(--text-2); margin-bottom: 10px;
-  display: flex; align-items: center; gap: 6px;
-}
-.v-host i { color: var(--cyan); font-size: 0.6rem; }
-.v-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 0.68rem; color: var(--text-3);
-}
-.v-views { display: flex; align-items: center; gap: 4px; }
-.v-views i { font-size: 0.55rem; }
-.v-expand-hint {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  color: var(--text-3); letter-spacing: 0.5px;
-  transition: color 0.2s;
-}
-.v-card:hover .v-expand-hint { color: var(--cyan); }
-
-/* Card expand panel */
-.v-expand {
-  display: none; padding: 0 20px 20px;
-  border-top: 1px solid var(--border);
-}
-.v-expand.open { display: block; }
-.v-expand .ep-label { margin-top: 14px; }
-.v-expand-summary {
-  font-size: 0.82rem; color: var(--text-2); line-height: 1.7;
-}
-
-/* ============================================================
-   STATS BAR
-   ============================================================ */
-.stats-bar {
-  padding: 64px 0; background: var(--bg-elevated);
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-}
-.stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 32px; text-align: center;
-}
-@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; } }
-.stat-num {
-  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800; color: var(--cyan); margin-bottom: 4px;
-}
-.stat-label {
-  font-size: 0.78rem; color: var(--text-2); font-weight: 500;
-}
-
-/* ============================================================
-   SPEAKING TOPICS
-   ============================================================ */
-.topics-section { padding: 80px 0 60px; }
-.topics-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-@media (max-width: 768px) { .topics-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .topics-grid { grid-template-columns: 1fr; } }
-.topic-card {
-  padding: 28px 24px; background: var(--bg-card);
-  border: 1px solid var(--border); border-radius: 12px;
-  transition: all 0.3s var(--ease); text-align: center;
-}
-.topic-card:hover {
-  border-color: var(--border-hover); transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-.topic-card i { font-size: 1.4rem; color: var(--cyan); margin-bottom: 14px; }
-.topic-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
-.topic-card p { font-size: 0.78rem; color: var(--text-3); line-height: 1.5; }
-
-/* ============================================================
-   DUAL CTA
-   ============================================================ */
-.cta-section { padding: 80px 0; }
-.cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-@media (max-width: 768px) { .cta-grid { grid-template-columns: 1fr; } }
-.cta-box {
-  padding: 48px 40px; background: var(--bg-card);
-  border: 1px solid var(--border); border-radius: 16px;
-  text-align: center; position: relative; overflow: hidden;
-}
-.cta-box::before {
-  content: ''; position: absolute; top: -1px;
-  left: 25%; right: 25%; height: 2px;
-}
-.cta-box.cyan-box::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-.cta-box.amber-box::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
-.cta-box h3 {
-  font-family: var(--font-display); font-size: 1.2rem;
-  font-weight: 700; margin-bottom: 10px;
-}
-.cta-box p { color: var(--text-2); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.6; }
-.cta-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 36px; border-radius: 100px;
-  font-family: var(--font-body); font-weight: 600;
-  font-size: 0.88rem; border: none; cursor: pointer;
-  transition: all 0.3s var(--ease); letter-spacing: 0.3px;
-}
-.cta-btn-cyan { background: var(--cyan); color: var(--bg); }
-.cta-btn-cyan:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--cyan-glow); color: var(--bg); }
-.cta-btn-amber { background: var(--amber); color: var(--bg); }
-.cta-btn-amber:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--amber-dim); color: var(--bg); }
-.cta-sub { margin-top: 12px; font-size: 0.75rem; color: var(--text-3); }
-
-/* ============================================================
-   ECOSYSTEM FOOTER
-   ============================================================ */
-.eco-footer {
-  padding: 40px 32px; border-top: 1px solid var(--border);
-}
-.eco-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 20px;
-}
-.eco-brand {
-  font-family: var(--font-display); font-size: 0.7rem;
-  font-weight: 600; color: var(--text-3); letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.eco-links { display: flex; gap: 24px; flex-wrap: wrap; }
-.eco-links a {
-  font-size: 0.78rem; color: var(--text-3);
-  transition: color 0.2s;
-}
-.eco-links a:hover { color: var(--cyan); }
-.eco-copy {
-  width: 100%; text-align: center; margin-top: 20px;
-  font-size: 0.7rem; color: var(--text-3);
-  padding-top: 20px; border-top: 1px solid var(--border);
-}
-
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.fade-in {
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-in.visible { opacity: 1; transform: translateY(0); }
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 <div class="grain"></div>
 
-<!-- ======== NAV ======== -->
-<nav class="nav" id="nav">
+<nav class="nav">
   <div class="nav-inner">
-    <div class="nav-brand">Philipp Explains<span> &nbsp;·&nbsp; Interview Archive</span></div>
+    <div class="nav-brand">Philipp Explains<span> · Interview Archive</span></div>
     <div class="nav-links">
-      <a href="#start">Start Here</a>
       <a href="#archive">All Interviews</a>
-      <a href="#topics">Topics</a>
+      <a href="https://leelaq.com">Leela Quantum Tech</a>
       <a href="https://quantumupgrade.io" class="nav-cta">Try Free for 7 Days</a>
     </div>
   </div>
 </nav>
 
-<!-- ======== HERO ======== -->
 <section class="hero">
   <div class="container">
     <div class="hero-content">
       <div class="hero-eyebrow">The Interview Archive</div>
       <h1>Philipp<br><span class="accent">Explains.</span></h1>
-      <p class="hero-sub">Every interview. Every question answered. The complete collection of <strong>Philipp von Holtzendorff-Fehling</strong> explaining the science, the technology, and the future of quantum energy — across 47+ podcasts and shows.</p>
+      <p class="hero-sub">Every interview. Every question answered. The complete collection of <strong>Philipp von Holtzendorff-Fehling</strong> explaining the science, the technology, and the future of quantum energy.</p>
       <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num" data-target="47" data-suffix="+">0</div>
-          <div class="hero-stat-label">Interviews</div>
-        </div>
-        <div>
-          <div class="hero-stat-num" data-target="82" data-suffix="hrs">0</div>
-          <div class="hero-stat-label">Of Content</div>
-        </div>
-        <div>
-          <div class="hero-stat-num" data-target="59" data-suffix="+">0</div>
-          <div class="hero-stat-label">Studies Cited</div>
-        </div>
+        <div><div class="hero-stat-num">9</div><div class="hero-stat-label">Interviews</div></div>
+        <div><div class="hero-stat-num">59+</div><div class="hero-stat-label">Studies Cited</div></div>
+        <div><div class="hero-stat-num">154</div><div class="hero-stat-label">Questions Answered</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======== TICKER ======== -->
 <div class="ticker">
-  <div class="ticker-track" id="tickerTrack">
+  <div class="ticker-track">
     <div class="ticker-item"><span class="ticker-dot"></span>The Human Upgrade · Dave Asprey</div>
     <div class="ticker-item"><span class="ticker-dot"></span>Ben Greenfield Life</div>
     <div class="ticker-item"><span class="ticker-dot"></span>The Life Stylist · Luke Storey</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Highest Self · Sahara Rose</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>BiohackingCongress</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Quite Frankly Podcast</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>HEAL with Kelly</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>The Wellness Mama</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Authority Magazine</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Dr. Christine Schaffner</div>
-    <!-- duplicate for seamless scroll -->
+    <div class="ticker-item"><span class="ticker-dot"></span>Healthy Living Today · Serena Poon</div>
     <div class="ticker-item"><span class="ticker-dot"></span>The Human Upgrade · Dave Asprey</div>
     <div class="ticker-item"><span class="ticker-dot"></span>Ben Greenfield Life</div>
     <div class="ticker-item"><span class="ticker-dot"></span>The Life Stylist · Luke Storey</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Highest Self · Sahara Rose</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>BiohackingCongress</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Quite Frankly Podcast</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>HEAL with Kelly</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>The Wellness Mama</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Authority Magazine</div>
-    <div class="ticker-item"><span class="ticker-dot"></span>Dr. Christine Schaffner</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Healthy Living Today · Serena Poon</div>
   </div>
 </div>
 
-<!-- ======== START HERE ======== -->
-<section class="start-here" id="start">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Start Here</span>
-      <h2 class="section-title">New? Watch These First</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Featured #1 large -->
-    <div class="featured-card" onclick="toggleExpand(this)">
-      <div class="featured-video">
-        <span class="featured-badge-top"><i class="fas fa-fire"></i> &nbsp;Most Watched</span>
-        <div class="featured-play"><i class="fas fa-play"></i></div>
-        <span class="featured-duration">1:42:18</span>
-      </div>
-      <div class="featured-info">
-        <div class="featured-channel">The Life Stylist Podcast</div>
-        <h3>The Technology That Made Luke Storey Rethink Everything</h3>
-        <p class="featured-host">with <strong>Luke Storey</strong></p>
-        <p class="featured-desc">The interview that started it all for the biohacking community. Philipp walks through 20 years of energy healing, the creation of Leela Quantum Tech, and what happens when you put quantum-charged water under a darkfield microscope.</p>
-        <div class="featured-tags">
-          <span class="tag tag-science">Blood Cell Research</span>
-          <span class="tag tag-consciousness">Quantum Field</span>
-          <span class="tag tag-biohacking">Darkfield Microscopy</span>
-        </div>
-      </div>
-      <div class="expand-panel">
-        <div class="ep-label">Timestamped Highlights</div>
-        <ul class="timestamp-list">
-          <li><span class="ts-time">0:04:22</span><span class="ts-text">From T-Mobile VP to quantum energy researcher — the origin story</span></li>
-          <li><span class="ts-time">0:18:45</span><span class="ts-text">What "quantum energy" actually means in plain English</span></li>
-          <li><span class="ts-time">0:32:10</span><span class="ts-text">Dr. Beverly Rubik's blood cell study — 100% of subjects recovered from WiFi damage</span></li>
-          <li><span class="ts-time">0:48:33</span><span class="ts-text">The Emoto Institute didn't endorse it. They LICENSED it.</span></li>
-          <li><span class="ts-time">1:05:17</span><span class="ts-text">Live GDV camera demonstration</span></li>
-          <li><span class="ts-time">1:22:40</span><span class="ts-text">Why skeptics become their best customers</span></li>
-        </ul>
-        <div class="ep-label">Key Q&amp;A</div>
-        <div class="qa-item">
-          <div class="qa-q"><span class="qa-badge">Q</span> How do you explain quantum energy to someone who's never heard of it?</div>
-          <div class="qa-a">Philipp describes it as concentrated life-force energy — the same energy traditional cultures call chi, prana, or orgone. The difference is Leela has figured out how to concentrate and store it, then proved it works with 59+ studies.</div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-q"><span class="qa-badge">Q</span> What makes Leela different from other energy products?</div>
-          <div class="qa-a">48+ placebo-controlled studies. Most companies in this space have zero. Leela has more peer-reviewed research than some pharmaceutical products.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Two smaller picks -->
-    <div class="start-grid">
-      <div class="start-card">
-        <div class="start-card-thumb">
-          <div class="play-sm"><i class="fas fa-play"></i></div>
-          <span class="start-card-dur">1:12:34</span>
-        </div>
-        <div class="start-card-body">
-          <div class="start-card-cat" style="color:var(--cat-biohacking)">Biohacking</div>
-          <h4>Quantum Energy Meets Biohacking: ATP, Blood Cells &amp; Beyond</h4>
-          <div class="start-card-host"><i class="fas fa-microphone" style="color:var(--cyan);font-size:0.6rem;margin-right:4px"></i> Dave Asprey</div>
-        </div>
-      </div>
-      <div class="start-card">
-        <div class="start-card-thumb">
-          <div class="play-sm"><i class="fas fa-play"></i></div>
-          <span class="start-card-dur">1:28:05</span>
-        </div>
-        <div class="start-card-body">
-          <div class="start-card-cat" style="color:var(--cat-science)">Science</div>
-          <h4>59 Studies. Zero Failures. The Most-Tested Wellness Tech Nobody's Heard Of.</h4>
-          <div class="start-card-host"><i class="fas fa-microphone" style="color:var(--cyan);font-size:0.6rem;margin-right:4px"></i> Ben Greenfield</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======== INTERSTITIAL #1 ======== -->
 <div class="interstitial">
-  <div class="interstitial-quote">"Name another CEO who has done <span class="cy">47 podcast interviews</span> and brought <span class="rd">peer-reviewed studies</span> to every single one."</div>
-  <div class="interstitial-sub">— We'll wait.</div>
+  <div class="interstitial-quote">"Evil cannot exist in high consciousness field."</div>
+  <div class="interstitial-sub">— Philipp von Holtzendorff-Fehling</div>
 </div>
 
-<!-- ======== FILTER + GRID ======== -->
-<section class="filter-section" id="archive">
+<section class="grid-section" id="archive">
   <div class="container">
     <div class="section-header">
       <span class="section-tag">Archive</span>
       <h2 class="section-title">All Interviews</h2>
       <div class="section-line"></div>
     </div>
-    <div class="filter-bar">
-      <span class="filter-label">Filter</span>
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="science">Science</button>
-      <button class="filter-btn" data-filter="biohacking">Biohacking</button>
-      <button class="filter-btn" data-filter="consciousness">Consciousness</button>
-      <button class="filter-btn" data-filter="emf">EMF &amp; 5G</button>
-      <button class="filter-btn" data-filter="origin">Origin Story</button>
-      <button class="filter-btn" data-filter="skeptic">Skeptic Interviews</button>
-      <span class="filter-count" id="filterCount">Showing 22 interviews</span>
-    </div>
-  </div>
-</section>
-<section class="grid-section">
-  <div class="container">
-    <div class="interview-grid" id="interviewGrid"></div>
+    <div class="interview-grid" id="grid"></div>
   </div>
 </section>
 
-<!-- ======== INTERSTITIAL #2 ======== -->
 <div class="interstitial">
-  <div class="interstitial-quote">"82 hours of interviews.<br><span class="cy">Not one host</span> could debunk it."</div>
-  <div class="interstitial-sub">That's not marketing. That's a track record.</div>
+  <div class="interstitial-quote">"Spirochetes can't exist in high vibration environments."</div>
+  <div class="interstitial-sub">— Philipp von Holtzendorff-Fehling</div>
 </div>
 
-<!-- ======== STATS BAR ======== -->
-<section class="stats-bar">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="fade-in"><div class="stat-num" data-target="59" data-suffix="+">0</div><div class="stat-label">Peer-Reviewed Studies</div></div>
-      <div class="fade-in"><div class="stat-num" data-target="48" data-suffix="+">0</div><div class="stat-label">Placebo-Controlled</div></div>
-      <div class="fade-in"><div class="stat-num" data-target="20" data-suffix="K+">0</div><div class="stat-label">User Testimonials</div></div>
-      <div class="fade-in"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Blood Cell Recovery</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ======== TOPICS ======== -->
-<section class="topics-section" id="topics">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Topics</span>
-      <h2 class="section-title">What Philipp Covers</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="topics-grid">
-      <div class="topic-card fade-in"><i class="fas fa-atom"></i><h4>Quantum Energy Science</h4><p>The physics of quantum fields and biofield interactions</p></div>
-      <div class="topic-card fade-in"><i class="fas fa-shield-halved"></i><h4>EMF &amp; 5G Protection</h4><p>Darkfield microscopy proof of WiFi blood cell recovery</p></div>
-      <div class="topic-card fade-in"><i class="fas fa-dna"></i><h4>Biohacking &amp; ATP</h4><p>20-29% ATP increases, mitochondrial optimization</p></div>
-      <div class="topic-card fade-in"><i class="fas fa-brain"></i><h4>Consciousness &amp; Healing</h4><p>Hawkins scale calibration, intention, energy healing</p></div>
-      <div class="topic-card fade-in"><i class="fas fa-droplet"></i><h4>Water &amp; Emoto Research</h4><p>Licensed by the Emoto Institute — not endorsed, LICENSED</p></div>
-      <div class="topic-card fade-in"><i class="fas fa-flask-vial"></i><h4>59+ Studies</h4><p>More peer-reviewed research than most pharma products</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ======== INTERSTITIAL #3 ======== -->
-<div class="interstitial">
-  <div class="interstitial-quote">"Plants can't be placebo'd.<br>Dogs don't read marketing materials.<br><span class="am">Water doesn't have beliefs.</span>"</div>
-  <div class="interstitial-sub">But they all respond to quantum energy. Every. Single. Time.</div>
-</div>
-
-<!-- ======== DUAL CTA ======== -->
 <section class="cta-section">
   <div class="container">
     <div class="cta-grid">
-      <div class="cta-box cyan-box">
+      <div class="cta-box cb1">
         <h3>Experience It Yourself</h3>
-        <p>Start your 7-day free trial of Quantum Upgrade. No credit card required. See what 47 podcast hosts already know.</p>
-        <a href="https://quantumupgrade.io" class="cta-btn cta-btn-cyan"><i class="fas fa-bolt"></i> Start Free Trial</a>
+        <p>Start your 7-day free trial of Quantum Upgrade. No credit card required.</p>
+        <a href="https://quantumupgrade.io" class="cta-btn btn-cyan"><i class="fas fa-bolt"></i> Start Free Trial</a>
         <div class="cta-sub">7-day free trial · No credit card · Cancel anytime</div>
       </div>
-      <div class="cta-box amber-box">
-        <h3>Book Philipp for Your Show</h3>
-        <p>Available for podcasts, summits, documentaries, and media interviews. He brings the studies.</p>
-        <button class="cta-btn cta-btn-amber"><i class="fas fa-envelope"></i> Media Inquiries</button>
-        <div class="cta-sub">Podcasts · Summits · Documentaries · Panels</div>
+      <div class="cta-box cb2">
+        <h3>Explore the Science</h3>
+        <p>59+ studies. 48+ placebo-controlled. See the evidence at WeDidTheScience.com.</p>
+        <a href="https://wedidthescience.com" class="cta-btn btn-amber"><i class="fas fa-flask-vial"></i> See the Studies</a>
+        <div class="cta-sub">WeDidTheScience.com</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======== ECOSYSTEM FOOTER ======== -->
+<div class="episode-overlay" id="episodeOverlay">
+  <button class="episode-close" onclick="closeEpisode()"><i class="fas fa-times"></i></button>
+  <div class="episode-inner" id="episodeInner"></div>
+</div>
+
 <footer class="eco-footer">
   <div class="eco-inner">
     <div class="eco-brand">The Quantum Energy Ecosystem</div>
     <div class="eco-links">
-      <a href="#">WeDidTheScience.com</a>
-      <a href="#">ThankYouLeelaQ.com</a>
-      <a href="#">ILoveLeelaQ.com</a>
-      <a href="#">WhatIsQuantumEnergy.com</a>
-      <a href="#">IDontBelieveYou.com</a>
+      <a href="https://wedidthescience.com">WeDidTheScience.com</a>
+      <a href="https://thankyouleelaq.com">ThankYouLeelaQ.com</a>
+      <a href="https://iloveleelaq.com">ILoveLeelaQ.com</a>
+      <a href="https://whatisquantumenergy.com">WhatIsQuantumEnergy.com</a>
       <a href="https://quantumupgrade.io">QuantumUpgrade.io</a>
       <a href="https://leelaq.com">LeelAQ.com</a>
     </div>
@@ -890,201 +282,1100 @@ a { color: var(--cyan); text-decoration: none; }
   </div>
 </footer>
 
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
 <script>
-/* ── VIDEO DATA ─────────────────────────────────────────────── */
-const videos = [
-  { title:"Can Quantum Energy Frequencies Heal Your Body?", host:"Dave Asprey · The Human Upgrade", views:"15K", duration:"1:12:34", cat:"science", badge:"badge-science",
-    summary:"Dave pushes Philipp on the hard science — and Philipp delivers. They dive into ATP studies showing 20-29% increases, darkfield microscopy results, and why Dave keeps a Quantum Bloc on his desk.",
-    timestamps:[{t:"0:08:12",s:"How Philipp explains quantum energy to skeptics"},{t:"0:22:40",s:"The ATP study — 20-29% increase across all subjects"},{t:"0:41:15",s:"Dave tests a Quantum Bloc live on air"},{t:"0:55:30",s:"Why this is different from every other energy product"}],
-    qa:[{q:"What's the mechanism of action?",a:"Philipp describes it as quantum coherence — the technology creates a field that helps biological systems return to optimal state. 59+ studies show the effects."}]
+const VIDEOS = [
+  {
+    "title": "Energize Your Life: Quantum Biohacking with Philipp Samor von Holtzendorff-Fehling | 1158",
+    "host": "Dave Asprey",
+    "podcast": "The Human Upgrade",
+    "duration": "unknown",
+    "youtube_url": "https://youtu.be/dVHR1VyufVY",
+    "yt_id": "dVHR1VyufVY",
+    "category": "biohacking",
+    "summary": "Philipp details quantum energy as the force behind matter itself, not quantum mechanics, and explains how Quantum Upgrade leverages entanglement using your name, birthdate, and birth city to increase ATP production by 20-29% and accelerate wound healing by 50-100%. The Quantum Upgrade includes a team of X-Men-like people who can literally see frequencies, and Philipp walks through 60+ studies with 50+ placebo controls proving the mechanism works at the cellular level. You'll learn how high vibration environments eliminate parasitic loads, why evil cannot exist in high consciousness fields, and the one-minute daily hack that shifts your energy instantly.",
+    "hook": "The quantum energy technology that increased ATP by nearly 30% now works for companies\u2014and it starts with a one-minute check-in.",
+    "who": "Biohackers serious about ATP optimization, founders scaling companies using quantum fields, anyone dealing with Lyme disease spirochetes, and people ready to measure consciousness on a scale that now exceeds 1000.",
+    "timestamps": [
+      {
+        "t": "unknown",
+        "s": "Philipp left corporate world in 2016 to build Quantum Upgrade technology"
+      },
+      {
+        "t": "unknown",
+        "s": "Quantum energy defined as energy behind the matter, not quantum mechanics\u2014Tesla reference"
+      },
+      {
+        "t": "unknown",
+        "s": "Quantum Upgrade works via entanglement using name, birthdate, birth city\u2014distance and time irrelevant"
+      },
+      {
+        "t": "unknown",
+        "s": "60+ studies, 50+ placebo-controlled: ATP production increase 20-29%"
+      },
+      {
+        "t": "unknown",
+        "s": "Dark field microscopy shows blood improvements after Quantum Upgrade exposure"
+      },
+      {
+        "t": "unknown",
+        "s": "Team includes people with X-Men-like abilities to literally see frequencies"
+      },
+      {
+        "t": "unknown",
+        "s": "Hawkins Scale now exceeds 1000 with Booster reaching 2,200\u2014no longer limited to original 0-1000 range"
+      },
+      {
+        "t": "unknown",
+        "s": "Lyme disease spirochetes cannot exist in high vibration environments"
+      }
+    ],
+    "qa": [
+      {
+        "q": "What exactly is quantum energy and how does it differ from quantum mechanics?",
+        "a": "Quantum energy is the energy behind matter itself\u2014the foundational force that precedes physical form. It's not quantum mechanics. Every cell has its own quantum field, and Quantum Upgrade taps into that field using your unique identifiers: name, birthdate, and birth city. Through entanglement, distance and time become irrelevant."
+      },
+      {
+        "q": "How does Quantum Upgrade actually work if it just needs your name and birthdate?",
+        "a": "Entanglement. Once you're identified by name, birthdate, and birth city, the quantum field created through Quantum Upgrade connects to you regardless of physical distance or time. The team includes people who can see frequencies at the quantum level, which allowed them to engineer this connection. It's been validated in 60+ studies with 50+ placebo controls."
+      },
+      {
+        "q": "What does the science show about ATP production?",
+        "a": "Double-blind placebo-controlled studies show ATP production increases 20-29% after exposure to Quantum Upgrade. This is measured at the cellular level and explains why people report more energy, faster recovery, and enhanced athletic performance. The mechanism works because quantum fields directly influence cellular mitochondrial function."
+      },
+      {
+        "q": "What's the connection between consciousness level and physical health outcomes?",
+        "a": "The Hawkins Scale measures consciousness from 0-1000, but Quantum Upgrade now exceeds 1000, reaching levels like 2,200 in Booster mode. At high consciousness fields, parasitic loads drop up to 80%, Lyme disease spirochetes cannot exist, and even evil cannot manifest. Consciousness isn't abstract\u2014it measurably shapes your physical biology."
+      },
+      {
+        "q": "What happens when you use Quantum Upgrade for EMF exposure in electric cars?",
+        "a": "An EMF study in an electric car showed all organs deregulate when exposed to EMF radiation. When Quantum Upgrade was activated, it completely reversed that deregulation. This is massive for anyone spending hours in vehicles or near high-EMF environments."
+      },
+      {
+        "q": "What's the practical, simple thing someone can do today to shift their energy?",
+        "a": "One-minute check-in morning and night. Just ask yourself 'how do I feel?' This simple practice activates your attractor field and begins shifting your consciousness. What you think you become\u2014and this check-in is the mechanism that starts the shift immediately."
+      }
+    ],
+    "quotes": [
+      "Evil cannot exist in high consciousness field.",
+      "What you think you become\u2014attractor fields.",
+      "The team includes X-Men-like people with abilities to see frequencies.",
+      "Spirochetes can't exist in high vibration environments."
+    ],
+    "studies": [
+      {
+        "researcher": "Philipp and research team",
+        "result": "20-29% increase in ATP production",
+        "desc": "ATP production measurement after Quantum Upgrade exposure across multiple populations"
+      },
+      {
+        "researcher": "Philipp and research team",
+        "result": "Significant blood improvements, reduced parasitic load up to 80%",
+        "desc": "Blood cell changes observed under microscopy after Quantum Upgrade"
+      },
+      {
+        "researcher": "Philipp and research team",
+        "result": "Wound healing accelerated 50-100%",
+        "desc": "Measurement of wound healing acceleration in Quantum Upgrade field"
+      },
+      {
+        "researcher": "BESA Institute",
+        "result": "All organs showed deregulation with EMF, completely reversed by Quantum Upgrade",
+        "desc": "EMF impact on organs in electric vehicle, then Quantum Upgrade intervention"
+      }
+    ],
+    "products": [
+      {
+        "name": "Quantum Upgrade",
+        "desc": "Uses entanglement with your name, birthdate, birth city to create a quantum field connected to you anywhere, anytime. Increases ATP 20-29%, accelerates wound healing 50-100%, reduces parasitic load up to 80%. Booster version reaches 2,200 on Hawkins Scale."
+      },
+      {
+        "name": "Quantum Upgrade for Companies",
+        "desc": "Currently deployed for Dave Asprey's 40 Years of Zen, Upgrade Labs facilities, and Danger Coffee. Scalable solution for business environments needing sustained high consciousness fields."
+      }
+    ]
   },
-  { title:"Quite Frankly: The Future of Quantum Healing", host:"Frank Elaridi · Quite Frankly", views:"15K", duration:"58:21", cat:"consciousness", badge:"badge-consciousness",
-    summary:"A deep conversation on the intersection of quantum physics, consciousness, and healing technology.",
-    timestamps:[{t:"0:05:00",s:"Philipp's spiritual awakening story"},{t:"0:25:00",s:"How consciousness affects quantum fields"}], qa:[] },
-  { title:"The Hidden Dangers of EMF & How to Protect Yourself", host:"Dave Asprey · The Human Upgrade", views:"12K", duration:"1:04:18", cat:"emf", badge:"badge-emf",
-    summary:"Philipp presents Dr. Beverly Rubik's darkfield microscopy images showing blood cell damage from WiFi and complete recovery with Leela products. 100% of subjects improved.",
-    timestamps:[{t:"0:12:30",s:"Before/after darkfield microscopy images"},{t:"0:28:00",s:"The 100% recovery rate explained"},{t:"0:45:00",s:"Practical EMF protection strategies"}],
-    qa:[{q:"Is 5G really dangerous?",a:"Philipp presents the research showing measurable biological effects from EMF exposure, then shows how Leela's technology creates a protective quantum field that allows blood cells to recover."}]
+  {
+    "title": "Harnessing Quantum Energy: Unlocking the Power of Biofields and Consciousness | 1202 | Dave Asprey",
+    "host": "Dave Asprey",
+    "podcast": "The Human Upgrade",
+    "duration": "unknown",
+    "youtube_url": "https://youtu.be/Gr8SfGWAObw",
+    "yt_id": "Gr8SfGWAObw",
+    "category": "biohacking",
+    "summary": "Philipp and Dave discuss 36+ clinical trials proving quantum fields reshape biofields and consciousness, with Dave's personal achievement ranking as the #3 tennis player in the US for 50+ age bracket using quantum-charged clothing, shoes, and Quantum Upgrade Booster set to Olympic Performance frequency. They dive into how quantum fields work at the cellular level through entanglement, why location energy matters (Sedona vs Gaza), and how shamanic friends independently detected Dave's LEELA quantum card energy six weeks after he started carrying it. The episode is framed with Dave's skeptic-friendly \"leprechaun\" mechanism-of-action explanation\u2014if you're uncomfortable with the mechanism, focus on the measurable results.",
+    "hook": "Dave Asprey went from biohacker to #3 tennis player in his age bracket using quantum-charged gear and Quantum Upgrade\u2014and shamans kept detecting the energy shifts he couldn't feel.",
+    "who": "Athletes looking for non-chemical performance gains, skeptics who want clinical data first and mechanism second, anyone curious why location energy (Sedona vs elsewhere) actually matters, and people open to consciousness technology backed by 36+ clinical trials.",
+    "timestamps": [
+      {
+        "t": "unknown",
+        "s": "Dave's skeptic-friendly framing: focus on results, mechanism can be 'leprechauns' if needed"
+      },
+      {
+        "t": "unknown",
+        "s": "36+ clinical trials prove quantum field effects on biofields and consciousness"
+      },
+      {
+        "t": "unknown",
+        "s": "Dave now #3 ranked tennis player in US for 50+ age bracket using quantum gear"
+      },
+      {
+        "t": "unknown",
+        "s": "Quantum-charged clothing, shoes, racket, and quantum underwear deployed for athletic advantage"
+      },
+      {
+        "t": "unknown",
+        "s": "Quantum Upgrade Booster set to Olympic Performance frequency for peak athletic state"
+      },
+      {
+        "t": "unknown",
+        "s": "Quantum fields work at cellular level through entanglement\u2014distance and time don't matter"
+      },
+      {
+        "t": "unknown",
+        "s": "Location energy discussion: Sedona's natural high-vibration field vs Gaza's depleted field"
+      },
+      {
+        "t": "unknown",
+        "s": "Ethics: can't put others in quantum field without consent"
+      }
+    ],
+    "qa": [
+      {
+        "q": "How do quantum fields actually work at the cellular level?",
+        "a": "Quantum fields operate through entanglement, meaning distance and time are irrelevant to their effect. Your cells respond to quantum field information instantly. The field targets your biofield\u2014the electromagnetic and energetic signature around your body\u2014which then cascades down to optimize cellular function. This is measurable through multiple clinical markers."
+      },
+      {
+        "q": "Can you actually target quantum fields to specific people without them knowing?",
+        "a": "Technically yes through entanglement, but ethically no. Philipp emphasizes you cannot put others in a quantum field without their explicit consent. It's a free will ethics issue. The technology is powerful enough to do it, but responsible deployment requires agreement from everyone affected."
+      },
+      {
+        "q": "Why does location matter for quantum energy fields?",
+        "a": "Different locations carry different baseline vibrational frequencies. Sedona has naturally high-vibration energy due to its geological and spiritual properties. Gaza carries a depleted, lower-vibration field. Quantum fields amplify the baseline frequency of a location, which is why the same technology produces different results in different geographic areas."
+      },
+      {
+        "q": "What happened with the shamanic detection of Dave's LEELA card?",
+        "a": "Dave started carrying a LEELA quantum card. Six weeks later, a shamanic friend independently detected the card's presence and energy signature in Dave's pocket. The same friend had done a reading on Dave years earlier and detected similar energy patterns. Independent shamanic verification of measurable energy changes from quantum technology."
+      },
+      {
+        "q": "How many clinical trials support quantum field effectiveness?",
+        "a": "36+ clinical trials. Dave frames this upfront as the skeptic-friendly anchor. If the mechanism of action (leprechauns, fields, whatever) makes you uncomfortable, the clinical data is what matters. The results are consistent, measurable, and reproducible across different labs and populations."
+      },
+      {
+        "q": "How did quantum-charged gear help Dave become #3 tennis player in his age bracket?",
+        "a": "Dave used quantum-charged clothing, shoes, racket, quantum underwear, and Quantum Upgrade Booster set to Olympic Performance frequency. The combination created a sustained high-vibration athletic state. The quantum field optimizes cellular ATP production, recovery speed, and neurological performance\u2014all measurable advantages in competitive tennis."
+      }
+    ],
+    "quotes": [
+      "Focus on results, mechanism can be leprechauns if needed.",
+      "You can't put others in the field without consent\u2014it's a free will ethics issue.",
+      "Shamans kept detecting the same energy pattern years apart independently."
+    ],
+    "studies": [
+      {
+        "researcher": "Multiple institutions",
+        "result": "Consistent improvement in measured biofield markers and consciousness indicators",
+        "desc": "Biofield and consciousness measurement studies with quantum field technology"
+      },
+      {
+        "researcher": "Independent shamanic practitioners",
+        "result": "Multiple independent detection of same energy patterns years apart",
+        "desc": "Shamanic practitioners independently detecting energy changes from LEELA quantum card and biofield shifts"
+      }
+    ],
+    "products": [
+      {
+        "name": "Quantum-Charged Clothing and Shoes",
+        "desc": "Dave uses fully charged clothing and shoes to maintain high-vibration state throughout the day, especially during training. The quantum charge is embedded in the material itself."
+      },
+      {
+        "name": "Quantum-Charged Racket",
+        "desc": "Dave's tennis racket is quantum-charged to maintain optimal vibration frequency during play, directly improving performance and recovery."
+      },
+      {
+        "name": "Quantum Underwear",
+        "desc": "Quantum-charged undergarments maintain high-vibration field directly on the body throughout the day and during sleep."
+      },
+      {
+        "name": "Quantum Upgrade Booster",
+        "desc": "Dave uses the Booster version set to Olympic Performance frequency for peak athletic state during training and competition."
+      },
+      {
+        "name": "LEELA Quantum Card",
+        "desc": "Portable quantum field card that Dave carries. Shamanic friend independently detected its presence and energy after 6 weeks of carry."
+      }
+    ]
   },
-  { title:"From Corporate Executive to Quantum Energy Pioneer", host:"HEAL with Kelly", views:"5.9K", duration:"1:01:12", cat:"origin", badge:"badge-origin",
-    summary:"The definitive origin story. From VP at T-Mobile to founding a quantum energy company after a personal health crisis that conventional medicine couldn't solve.",
-    timestamps:[{t:"0:03:00",s:"The corporate career — VP at T-Mobile"},{t:"0:18:00",s:"The health crisis that changed everything"},{t:"0:35:00",s:"Building Leela Quantum Tech from scratch"}], qa:[] },
-  { title:"The Science of Quantum Energy Fields", host:"Ben Greenfield Life", views:"4.8K", duration:"1:15:42", cat:"science", badge:"badge-science",
-    summary:"Ben's audience demands evidence. Philipp walks through study methodology, placebo-controlled design, and the EEG results showing 77.6% brain stress reduction.",
-    timestamps:[{t:"0:10:00",s:"Study methodology explained"},{t:"0:30:00",s:"EEG brain stress results — 77.6% reduction"},{t:"0:50:00",s:"Why placebo control matters"}], qa:[] },
-  { title:"Biohacking with Quantum Frequencies", host:"Luke Storey · The Life Stylist #489", views:"4.5K", duration:"1:22:10", cat:"biohacking", badge:"badge-biohacking",
-    summary:"Luke and Philipp go deep on practical applications — how to use quantum energy products for sleep, focus, and athletic performance.", timestamps:[], qa:[] },
-  { title:"Protecting Your Family from EMF Radiation", host:"Luke Storey · The Life Stylist #512", views:"4.2K", duration:"1:08:33", cat:"emf", badge:"badge-emf",
-    summary:"Practical guide for parents: how EMF affects children, what the studies show, and how to create a protected home environment.", timestamps:[], qa:[] },
-  { title:"Raising Consciousness Through Quantum Technology", host:"Sahara Rose · Highest Self", views:"3.9K", duration:"55:18", cat:"consciousness", badge:"badge-consciousness",
-    summary:"Philipp goes deeper on the Hawkins Map of Consciousness, what it means for a product to calibrate at 8,000, and how 'Leela' — Sanskrit for Divine Play — represents the philosophy.", timestamps:[], qa:[] },
-  { title:"Quantum Energy & the Future of Wellness", host:"BiohackingCongress · Keynote 2024", views:"3.4K", duration:"38:12", cat:"biohacking", badge:"badge-biohacking",
-    summary:"Philipp's keynote presentation covering the full Leela Quantum Tech story, product line, and vision for the future of frequency-based wellness.", timestamps:[], qa:[] },
-  { title:"How I Left the Corporate World to Follow My Mission", host:"Authority Magazine", views:"3.2K", duration:"Read", cat:"origin", badge:"badge-origin",
-    summary:"A written interview covering Philipp's transition from the telecom industry to quantum energy entrepreneurship.", timestamps:[], qa:[] },
-  { title:"EMF, 5G & What You Need to Know", host:"The Wellness Mama Podcast", views:"2.8K", duration:"52:14", cat:"emf", badge:"badge-emf",
-    summary:"Philipp explains EMF risks in family-friendly terms and provides actionable steps parents can take immediately.", timestamps:[], qa:[] },
-  { title:"Water Structuring & Quantum Coherence", host:"Ben Greenfield Life #2", views:"2.4K", duration:"1:10:05", cat:"science", badge:"badge-science",
-    summary:"Deep dive into the Emoto Institute partnership — they didn't just endorse the technology, they LICENSED it. Water crystal photography results discussed in detail.", timestamps:[], qa:[] },
-  { title:"Frequency Medicine: The Next Frontier", host:"Dr. Christine Schaffner", views:"2.1K", duration:"59:44", cat:"science", badge:"badge-science",
-    summary:"Two practitioners discuss frequency-based healing from both the scientific and clinical perspectives.", timestamps:[], qa:[] },
-  { title:"Healing Trauma with Frequency & Intention", host:"The Mindvalley Podcast", views:"1.8K", duration:"42:18", cat:"consciousness", badge:"badge-consciousness",
-    summary:"Philipp connects quantum energy to emotional healing, discussing how trauma is stored in the biofield and how frequency can help release it.", timestamps:[], qa:[] },
-  { title:"Prove It: A Skeptic's Deep Dive Into Quantum Energy", host:"Science Uncensored", views:"1.7K", duration:"1:34:08", cat:"skeptic", badge:"badge-skeptic",
-    summary:"The host came in swinging — and left rethinking everything. Every objection gets addressed with a study. Every 'but what about...' gets answered with data.",
-    timestamps:[{t:"0:05:00",s:"Host lays out his skepticism"},{t:"0:20:00",s:"Philipp's response: 'Let's go study by study'"},{t:"0:45:00",s:"The plant experiments — plants can't be placebo'd"},{t:"1:10:00",s:"Host admits he can't debunk the blood cell research"}],
-    qa:[{q:"Isn't this just the placebo effect?",a:"48+ placebo-controlled studies. Plants showed growth improvements. Water showed structural changes. Cells showed ATP increases. None of these have beliefs or expectations."}]
+  {
+    "title": "How Quantum Energy Raises Your Biohacking to a New Level | Leela Quantum Tech | 1013 | Dave Asprey",
+    "host": "Dave Asprey",
+    "podcast": "The Human Upgrade",
+    "duration": "unknown",
+    "youtube_url": "https://youtu.be/3egFczfScVo",
+    "yt_id": "3egFczfScVo",
+    "category": "science",
+    "summary": "Deep scientific dive into quantum energy as the force behind matter itself, backed by peer-reviewed studies including an Arizona university ATP study showing 6-10% ATP increase in double-blind randomized conditions. Dark field microscopy reveals the mechanism: quantum fields reverse blood clotting in 100% of cases within 10 minutes and increase white blood cell activity measurably. Philipp details the development team including Roman Hafner, a European \"Wunderkind\" literally born with the ability to see frequencies (performed on stage at age 11), plus 6 healers and 2-3 scientists who spent 8 months engineering the Infinity Block. You'll learn why the team refuses to patent the charging method, how foods charged in Infinity Block reduce allergy response 65-95%, and why sugar stress response dropped 75-85% in documented cases.",
+    "hook": "The quantum technology that costs $50,000 to build in European clinics now works in a device that reverses blood clotting in 100% of cases within 10 minutes.",
+    "who": "Scientists wanting peer-reviewed ATP and blood cell data, biohackers serious about dark field microscopy verification, anyone dealing with food allergies (65-95% response reduction documented), and people curious how a human born to see frequencies engineered a technology no one else thought possible.",
+    "timestamps": [
+      {
+        "t": "unknown",
+        "s": "Quantum energy defined as energy behind matter itself, Tesla reference"
+      },
+      {
+        "t": "unknown",
+        "s": "Every cell has its own quantum field\u2014foundation of cellular communication"
+      },
+      {
+        "t": "unknown",
+        "s": "Arizona university ATP study: 6-10% increase in double-blind randomized conditions"
+      },
+      {
+        "t": "unknown",
+        "s": "Dark field microscopy: reverses stage 1 and 2 blood clotting in 100% of cases within 10 minutes"
+      },
+      {
+        "t": "unknown",
+        "s": "White blood cell activity increased measurably after quantum field exposure"
+      },
+      {
+        "t": "unknown",
+        "s": "Five randomized sham-controlled studies on blood and EMF effects"
+      },
+      {
+        "t": "unknown",
+        "s": "Beverly Rubik research cited on biofield measurement and quantum effects"
+      },
+      {
+        "t": "unknown",
+        "s": "BESA Institute testing in Tesla electric car confirmed organ deregulation reversing with Infinity Block"
+      }
+    ],
+    "qa": [
+      {
+        "q": "What does the Arizona university ATP study actually show?",
+        "a": "Double-blind randomized controlled trial measuring ATP production after quantum field exposure. Results: 6-10% increase in ATP in the first study. This is significant because ATP is cellular energy currency. Higher ATP means better mitochondrial function, faster recovery, more physical energy, and improved cognitive performance."
+      },
+      {
+        "q": "What's happening in the blood with dark field microscopy?",
+        "a": "Quantum field exposure reverses stage 1 and stage 2 blood clotting in 100% of cases within 10 minutes. White blood cell activity increases measurably. Parasitic load decreases. This explains clinical improvements in cardiovascular health, immune function, and recovery. The mechanism is quantum field re-ordering of blood cell electron configurations and resonance patterns."
+      },
+      {
+        "q": "How does food charging with Infinity Block reduce allergies by 65-95%?",
+        "a": "When food is charged in the Infinity Block for 3-5 minutes, the quantum field restructures the allergen's vibrational signature. Todd Shipman's crab meat allergy provided live proof at Bulletproof Conference. The immune system no longer recognizes the food as threatening because the quantum signature has changed. This effect persists after food is removed from the field."
+      },
+      {
+        "q": "Who is Roman Hafner and why does he matter?",
+        "a": "Roman Hafner is a European 'Wunderkind' literally born with the ability to perceive quantum frequencies directly. He performed on stage at age 11 demonstrating this ability. He led the engineering team that designed the Infinity Block after 8 months of development. His unique gift to see frequencies translated into technology that replicates those effects for everyone else."
+      },
+      {
+        "q": "What's the difference between Infinity Block, Travel Block, and Small Quantum Block?",
+        "a": "Infinity Block has 1km+ radius of quantum field effect\u2014covers entire homes and facilities. Travel Block has 150m outdoor radius and 75m indoor radius for hotels and vehicles. Small Quantum Block is portable for frequency medicine application and food charging. All use the same charging methodology but different physical constructions and power configurations."
+      },
+      {
+        "q": "Why did Philipp choose not to patent the charging method?",
+        "a": "Intentionally refusing patent protection actually protects the trade secret better. Once you patent, you must disclose the methodology in the patent application. By keeping it proprietary without patent, the methodology remains completely secret. The team chose protecting the core innovation over patent legal advantages."
+      },
+      {
+        "q": "What's the warning about too much quantum exposure?",
+        "a": "Excessive exposure can trigger detox symptoms including sweating. This happens because the quantum field accelerates cellular cleanup and mobilization of toxins. Start with moderate exposure and increase gradually. If you experience strong detox symptoms, reduce exposure time and let your body process."
+      }
+    ],
+    "quotes": [
+      "Every cell has its own quantum field\u2014that's the foundation of how this works.",
+      "Roman Hafner was born able to see frequencies and performed on stage at age 11.",
+      "Reverses stage 1 and 2 blood clotting in 100% of cases within 10 minutes\u2014you can see it on dark field microscopy.",
+      "We chose not to patent to protect the trade secret better\u2014once you patent, you must disclose.",
+      "Todd Shipman's crab allergy reversed after the Infinity Block exposure\u2014live proof."
+    ],
+    "studies": [
+      {
+        "researcher": "Arizona University Lab",
+        "result": "6-10% increase in ATP production in first study",
+        "desc": "Double-blind randomized controlled trial measuring ATP production after quantum field exposure"
+      },
+      {
+        "researcher": "Philipp and research team",
+        "result": "100% reversal of stage 1 and 2 blood clotting within 10 minutes, white blood cell activity increased, parasitic load decreased",
+        "desc": "Blood cell analysis before and after quantum field exposure using dark field microscopy"
+      },
+      {
+        "researcher": "Philipp and research team",
+        "result": "Consistent improvements in blood markers and reversal of EMF-induced deregulation",
+        "desc": "Five randomized sham-controlled studies on blood parameters and EMF effects"
+      },
+      {
+        "researcher": "Beverly Rubik",
+        "result": "Validated biofield changes from quantum field technology",
+        "desc": "Biofield measurement research and quantum effects on living systems"
+      },
+      {
+        "researcher": "BESA Institute",
+        "result": "Infinity Block completely reversed organ deregulation caused by electric car EMF",
+        "desc": "Testing quantum field effectiveness in reversing EMF organ deregulation in electric vehicles"
+      },
+      {
+        "researcher": "European Clinic",
+        "result": "Independent verification of Infinity Block effectiveness in clinical setting",
+        "desc": "$50,000 quantum field device testing confirming effects independently"
+      },
+      {
+        "researcher": "Todd Shipman",
+        "result": "Crab meat allergy reversed after 3-5 minute Infinity Block exposure",
+        "desc": "Live demonstration of food allergy reversal through quantum charging"
+      },
+      {
+        "researcher": "Emoto Institute",
+        "result": "Quantum fields demonstrated most effective water structuring method",
+        "desc": "Water structuring validation showing quantum fields structure water faster than any other method tested"
+      }
+    ],
+    "products": [
+      {
+        "name": "Infinity Block",
+        "desc": "Gold-anodized aluminum, sandblasted construction. 1km+ radius quantum field effect. Reverses blood clotting in 100% of cases within 10 minutes, increases white blood cells, reduces parasitic load. Charging method kept secret and not patented to protect trade secret."
+      },
+      {
+        "name": "Travel Block",
+        "desc": "Portable version with 150m outdoor radius and 75m indoor radius. Same quantum field technology as Infinity Block in travel-sized form."
+      },
+      {
+        "name": "Small Quantum Block",
+        "desc": "Pocket-sized quantum field generator for frequency medicine application and food charging. Charges food 3-5 minutes to reduce allergy response 65-95%."
+      }
+    ]
   },
-  { title:"From Skeptic to Believer: Quantum Energy Explained", host:"The Broken Brain Podcast", views:"1.4K", duration:"1:03:21", cat:"skeptic", badge:"badge-skeptic",
-    summary:"Host shares his own journey from dismissing quantum energy to testing the products and seeing results he couldn't explain away.", timestamps:[], qa:[] },
-  { title:"How Quantum Tech Is Changing Biohacking Forever", host:"Upgrade Labs Podcast", views:"1.5K", duration:"50:33", cat:"biohacking", badge:"badge-biohacking",
-    summary:"Recorded at Dave Asprey's Upgrade Labs facility, this episode shows Philipp demonstrating products with real-time biometric monitoring.", timestamps:[], qa:[] },
-  { title:"The Real Science of Quantum Healing", host:"SuperHuman Summit · Keynote", views:"1.7K", duration:"35:09", cat:"science", badge:"badge-science",
-    summary:"Conference keynote presenting the full research portfolio — 59+ studies summarized in 35 minutes with visual evidence.", timestamps:[], qa:[] },
-  { title:"Optimizing Your Sleep with Quantum Fields", host:"The Optimized Lifestyle", views:"1.9K", duration:"47:22", cat:"biohacking", badge:"badge-biohacking",
-    summary:"Practical episode focused on sleep improvement — HRV data, sleep tracking results, and how to set up quantum energy in your bedroom.", timestamps:[], qa:[] },
-  { title:"Building a Mission-Driven Tech Company", host:"Conscious Entrepreneur Podcast", views:"1.2K", duration:"44:16", cat:"origin", badge:"badge-origin",
-    summary:"The business story — funding, team building, scaling a quantum energy company in a skeptical market.", timestamps:[], qa:[] },
-  { title:"5G, EMF & Your Children: A Parent's Guide", host:"The Model Health Show", views:"1.1K", duration:"56:48", cat:"emf", badge:"badge-emf",
-    summary:"Focused on child protection — the developing brain's sensitivity to EMF and practical solutions for schools and bedrooms.", timestamps:[], qa:[] },
-  { title:"Quantum Upgrade: Frequencies for Your Home", host:"Sahara Rose · Highest Self #2", views:"3.6K", duration:"48:27", cat:"consciousness", badge:"badge-consciousness",
-    summary:"Philipp introduces the Quantum Upgrade subscription service — how frequency streaming works, the 7-day free trial, and early user results.", timestamps:[], qa:[] }
+  {
+    "title": "Elevate Earth: Consciousness & EMF Solutions w/ Philipp & Ian of Quantum Upgrade",
+    "host": "Luke Storey",
+    "podcast": "The Luke Storey Show",
+    "duration": "~2 hours",
+    "youtube_url": "https://youtu.be/BfUR0nwtP98",
+    "yt_id": "BfUR0nwtP98",
+    "category": "consciousness",
+    "summary": "Philipp and Ian Mitchell go deep with Luke Storey on everything from 5-MeO-DMT breakthrough experiences to the science of quantum energy. Philipp reveals he facilitates bufo ceremonies in Costa Rica, explains how Quantum Upgrade is an unhackable analog system with a digital front end, and breaks down the updated Infinity Block designed to handle even HAARP-level radiation. Ian explains quantum biology in plain English.",
+    "hook": "Philipp reveals he facilitates bufo ceremonies in Costa Rica, made US Tennis Nationals top 8, and built an unhackable analog quantum system \u2014 all in one conversation with Luke Storey.",
+    "who": "Anyone who wants the full Philipp origin story, consciousness philosophy, and the most detailed explanation of how Quantum Upgrade actually works technically.",
+    "timestamps": [
+      {
+        "t": "0:02:00",
+        "s": "Philipp reveals he's a competitive tennis player \u2014 made US Nationals top 8, quantum-charges his rackets"
+      },
+      {
+        "t": "0:05:00",
+        "s": "Athletes using QU: Blaine McConnell (400lb clean and jerk), using blocks and Quantum Upgrade"
+      },
+      {
+        "t": "0:08:00",
+        "s": "Deep conversation about 5-MeO-DMT \u2014 Ian tried it, didn't have the full dissolution experience"
+      },
+      {
+        "t": "0:15:00",
+        "s": "Philipp describes facilitating bufo ceremonies in Costa Rica \u2014 2 years of training, team of 3-4 people, only on grass"
+      },
+      {
+        "t": "0:20:00",
+        "s": "Philipp's breakthrough experience: 'the remembering of home \u2014 that you're eternal, that you're all that is'"
+      },
+      {
+        "t": "0:35:00",
+        "s": "Larry Pham's heart rate jumped 20 BPM every time he walked near the Gen 8 block at a conference"
+      },
+      {
+        "t": "0:40:00",
+        "s": "Customer near a HAARP field \u2014 Infinity Block only covered 40% of the radiation, leading to upgraded version"
+      },
+      {
+        "t": "0:45:00",
+        "s": "Quantum Upgrade explained: unhackable analog system with digital front end, works through quantum entanglement"
+      }
+    ],
+    "qa": [
+      {
+        "q": "How does Quantum Upgrade technically work?",
+        "a": "It's a huge analog system (unhackable, can't be accessed digitally) connected to a digital front end. You book it for yourself, pets, home, car, or phone using a unique identifier \u2014 your name, birthdate, birth city, and country. This creates a quantum entanglement field that follows you everywhere. You manage the field from your phone \u2014 setting Hawkins levels, boosters, and frequencies."
+      },
+      {
+        "q": "What is Philipp's experience with 5-MeO-DMT and bufo ceremonies?",
+        "a": "Philipp has been facilitating bufo ceremonies on his land in Costa Rica for 2 years, trained by Costa Rica's top facilitator. He describes the breakthrough experience as 'the remembering of home' \u2014 realizing you're eternal and part of all that is. He facilitates 2-day ceremonies with a team of 3-4 people, always outdoors on grass for safety."
+      },
+      {
+        "q": "How did the Infinity Block get upgraded for HAARP-level EMF?",
+        "a": "A customer lived within 1.5 miles of a HAARP field. Her regular Infinity Block could only handle about 40% of the radiation. Leela checked what energy level was needed for complete neutralization and redesigned the Infinity Block with new features. The January 1st update now handles even extreme EMF sources and reaches up to 2200 on the Hawkins scale with boosters."
+      },
+      {
+        "q": "Can the field from Quantum Upgrade follow you anywhere?",
+        "a": "Yes. Unlike a signal being sent to you, you're literally IN the field through quantum entanglement. You could travel to Australia, go to a grocery store, be anywhere on the planet \u2014 the field follows you. Turn it on, pause it, change frequencies, set boosters \u2014 all from your phone in real time."
+      }
+    ],
+    "quotes": [
+      "You're literally in the field. It doesn't matter where you go. You could travel to Australia. You're in the field.",
+      "The remembering of home. That's really what it was. You realize that you're eternal. And you realize what infinity is.",
+      "It's a huge analog system. It can't be hacked. You cannot access it from anywhere.",
+      "I turned 50, so I can play with the 50s and older and beat their ass."
+    ],
+    "studies": [],
+    "products": [
+      {
+        "name": "Quantum Upgrade subscription",
+        "desc": "Unhackable analog system with digital front end \u2014 field follows you anywhere through quantum entanglement. Up to Hawkins 1100 regular, 2200 booster."
+      },
+      {
+        "name": "Infinity Bloc",
+        "desc": "Updated January 1st with new features to handle even HAARP-level radiation. Field extends over a kilometer."
+      },
+      {
+        "name": "Olympic Performance frequency",
+        "desc": "Philipp uses it for tennis competitions along with quantum-charged rackets"
+      }
+    ]
+  },
+  {
+    "title": "Quantum Upgrade: Charge Your Health w/ Philipp Samor von Holtzendorff-Fehling & Ian Mitchell #461",
+    "host": "Luke Storey",
+    "podcast": "The Life Stylist Podcast",
+    "duration": "~90 min",
+    "youtube_url": "https://youtu.be/zrONu1p182g",
+    "yt_id": "zrONu1p182g",
+    "category": "biohacking",
+    "summary": "Luke Storey sits down with Philipp and Ian Mitchell for a deep conversation covering the Infinity Block, the Quantum Upgrade remote service, and how quantum entanglement makes both work. Ian drops jaw-dropping details about double-blind ATP studies, the shellfish allergy demonstration at a biohacking conference, and explains quantum entanglement in a way that actually makes sense. Philipp reveals the Quantum Upgrade took 12 months to develop, uses a massive analog system that cannot be hacked, and explains why the technology physically cannot be used for nefarious purposes.",
+    "hook": "Ian Mitchell told Luke Storey to check out Leela Quantum \u2014 and then spent years proving it works with double-blind studies that show 100% efficacy.",
+    "who": "Biohackers comparing Quantum Upgrade vs. FLFE, anyone wanting to understand how remote quantum energy actually works, people interested in EMF protection for their car and home, and skeptics who need a scientist to explain why this isn't woo-woo.",
+    "timestamps": [
+      {
+        "t": "0:00",
+        "s": "Luke introduces the massive 16x16x16 Infinity Block \u2014 goes up to 2000 on Hawkins scale with auto-leveling for each person"
+      },
+      {
+        "t": "5:00",
+        "s": "Ian explains how he first connected with Philipp over Carbon60 research and why the rigorous science behind Leela won him over"
+      },
+      {
+        "t": "10:00",
+        "s": "Philipp reveals Quantum Upgrade took 12 months to develop \u2014 analog system connected to digital frontend, building multiple locations globally for security"
+      },
+      {
+        "t": "15:00",
+        "s": "Ian describes Todd Shipman shellfish allergy demo at biohacking conference \u2014 derma-rolled crab juice on one arm (massive reaction), quantum-charged crab on other arm (zero reaction)"
+      },
+      {
+        "t": "20:00",
+        "s": "Munich clinic reports 65-95% reduction in allergy response across all substances after just 3 minutes in block"
+      },
+      {
+        "t": "25:00",
+        "s": "Ian explains the Hawkins Scale as measuring energetic coherence \u2014 the difference between a light bulb and a laser"
+      },
+      {
+        "t": "30:00",
+        "s": "Roman Hafner revelation \u2014 born with ability to see every frequency, was consulting for doctors at age 11"
+      },
+      {
+        "t": "40:00",
+        "s": "BESA Institute head called Philipp in tears \u2014 100% success rate in double-blind blood studies, completely humbled"
+      }
+    ],
+    "qa": [
+      {
+        "q": "How did Ian Mitchell first get involved with Leela Quantum Tech?",
+        "a": "Philipp called Ian about 4-5 years ago about Carbon60 research. As they kept talking, Philipp showed Ian the rigorous science behind every product. Everything was double-blinded and tested properly. Ian could hang his hat on it and say this isn't frou-frou \u2014 we can show you dark-field microscopy of your blood changing. That's why he took the science advisory role."
+      },
+      {
+        "q": "What is the Quantum Upgrade service and how does it differ from physical products?",
+        "a": "Quantum Upgrade is a remote subscription service that puts you, your home, pet, or car in a quantum energy field without needing a physical device. You can customize Hawkins scale levels for daytime and nighttime, set 30-minute boosters, and add specific frequencies. It's more powerful and customizable than blocks, but you can't charge physical objects like food and water with it \u2014 you need a physical block for that."
+      },
+      {
+        "q": "How does quantum entanglement work in plain English?",
+        "a": "Ian explains: once you entangle something, it stops being separate \u2014 it's one consistent waveform. You're not affecting something at a distance, you're affecting yourself because both sides are the same thing. Think of yourself as a waveform, not a meat suit. When one waveform expresses intent to connect with another for positive benefit, entanglement happens and real physiological changes follow."
+      },
+      {
+        "q": "Can the technology be used nefariously \u2014 like lowering someone's consciousness?",
+        "a": "Philipp is emphatic: it's impossible. The nature of pure quantum energy is that it supports life and consciousness, and neutralizes everything harmful. You cannot copy a fear frequency \u2014 it falls through. You cannot lower anyone's vibration. It cannot do anything other than support life. This was a prerequisite before they offered it publicly."
+      },
+      {
+        "q": "What happened in the vaccinated blood study?",
+        "a": "People were tested before and after Wi-Fi exposure. Blood clumped badly for everyone. Then quantum energy was turned on while Wi-Fi stayed on, and within 10-15 minutes everything reversed \u2014 stage 1 and 2 of blood clotting completely gone. White blood cells reactivated (they'd been paralyzed by Wi-Fi), parasitic load decreased, and blood oxygenation improved."
+      },
+      {
+        "q": "How does Quantum Upgrade compare to FLFE?",
+        "a": "Philipp says FLFE works with pure, good energy and they actually recommended them during development. But the Hawkins scale level is much lower than Quantum Upgrade \u2014 if you have both running, the dominant energy comes from whatever vibrates higher. Ian used FLFE for years before switching to Quantum Upgrade because of the power differential and the broader frequency range affected."
+      },
+      {
+        "q": "Who is Roman Hafner and why does he matter?",
+        "a": "Roman Hafner is called 'the Wunderkind' in Europe \u2014 born with the ability to see every frequency on a granular level. At age 11 he was on stage telling 300 people their health problems and solutions. Doctors would book him to diagnose patients they couldn't figure out. He's the primary calibration reference for Leela products, with kinesiology as a secondary cross-reference method."
+      },
+      {
+        "q": "Why do products now exceed Hawkins' scale of 1000?",
+        "a": "Hawkins wrote his book when it wasn't possible for objects or people on Earth to vibrate above 1000. But Earth's energy has shifted dramatically. The energies people can vibrate in have changed. A year ago they couldn't have made a block at the current levels. Now the 16x16 Infinity Block reaches 2000, and the eighth generation blocks hit 1200. They keep pushing because the planet keeps unlocking new levels."
+      },
+      {
+        "q": "How does quantum energy handle EMF \u2014 does it block the signal?",
+        "a": "Ian's sunscreen analogy: the EMF is still there, but the destructive interference patterns are negated. You can still use Wi-Fi, 5G, all your devices \u2014 the harmful component is neutralized while the signal works fine. It's like sunscreen that lets you enjoy the sun without the burn. You're effectively immune to EMF's negative effects while still using the technology."
+      },
+      {
+        "q": "Did they really test quantum energy on a 5G tower?",
+        "a": "Yes. Philipp confirms they tested it on a 5G tower for 2-3 hours and it was extremely successful \u2014 the whole neighborhood got great energy. But they stopped because it's not their place to do that without consent. Maybe in a year or two he'll talk to old colleagues at T-Mobile about doing something together when the world is ready."
+      }
+    ],
+    "quotes": [
+      "It's impossible to use for nefarious purposes. You cannot copy a fear frequency \u2014 it falls through. The nature of pure quantum energy is it supports life and consciousness, and neutralizes everything harmful. It cannot do anything else.",
+      "We tested that actually with a 5G tower. It was extremely successful \u2014 great energy for the whole neighborhood. We only did it for 2-3 hours.",
+      "He had tears in his eyes when he called me. He almost couldn't talk because he had witnessed with his own eyes that it worked in 100% of the cases over this huge distance and was double-blind.",
+      "The universe is much more of a large thought than it is a large thing."
+    ],
+    "studies": [
+      {
+        "researcher": "BESA Institute team",
+        "result": "100% success rate in all cases \u2014 head of institute called Philipp in tears. Completely reversed blood clotting, reactivated white blood cells, reduced parasitic load",
+        "desc": "Randomized double-blind lifeblood analysis and bioenergetic testing of Quantum Upgrade from thousands of miles away"
+      },
+      {
+        "researcher": "Ian Mitchell + biochemistry professor",
+        "result": "Consistent, repeatable results showing significant ATP increases \u2014 100% of the time, from 10,000 miles away",
+        "desc": "Double-blind ATP production study on cell cultures exposed to remote Quantum Upgrade"
+      },
+      {
+        "researcher": "Munich clinic",
+        "result": "65-95% reduction in allergy response across all substances tested in just 3 minutes (recommended minimum is 4 minutes)",
+        "desc": "Pilot study using $50,000 medical allergy testing device \u2014 tested food allergy stress response after 3 minutes of quantum charging"
+      }
+    ],
+    "products": [
+      {
+        "name": "Infinity Block (16x16x16)",
+        "desc": "Goes up to 2000 on Hawkins scale with auto-leveling \u2014 scales down for people who can't handle the intensity while keeping it high for those who can. Community requested this size for charging salad bowls, plates, barbecue meat. People even lay inside it."
+      },
+      {
+        "name": "Quantum Upgrade Service",
+        "desc": "12 months to develop. Massive analog system that can't be hacked. Customizable Hawkins levels for day/night, 30-min boosters, frequency selection, share function for family. Way more powerful than any single block."
+      },
+      {
+        "name": "Quantum Block",
+        "desc": "571 on Hawkins scale. Great for kitchen island \u2014 charging food, water, supplements, smoothies daily"
+      },
+      {
+        "name": "Infinity Block (standard)",
+        "desc": "Basic at 733 Hawkins, fourth gen at 942. Don't put more than one photo inside \u2014 energies commingle. Partners can share if they both consent."
+      }
+    ]
+  },
+  {
+    "title": "Quantum Energy: What It Is And How It Can Change Your LIFE!",
+    "host": "Ben Greenfield",
+    "podcast": "Ben Greenfield Fitness",
+    "duration": "unknown",
+    "youtube_url": "https://youtu.be/Mvn3QF4j9GM",
+    "yt_id": "Mvn3QF4j9GM",
+    "category": "science",
+    "summary": "Ben Greenfield explores quantum energy fundamentals with Philipp and Ian Mitchell, the Chief Scientific Advisor who teaches senior biochemistry at university level and required \"Life at the Edge\" as reading material to understand quantum biology. Ian explains that every human is \"a series of trillions of fluctuations of fields that have coalesced\"\u2014you are a quantum phenomenon in physical form. Philipp's background reveals a VP at T-Mobile running 14 European countries, certified Kundalini yoga teacher, national-level tennis player, and father of two who founded Leela Quantum Tech. The episode dives deep into Infinity Block mechanics (three golden plates top and bottom, ~8x8x8 inches, highly concentrated quantum energy field between plates), Todd Shipman's allergy demonstration, and Ian's redox potential testing proving quantum-charged compounds behave entirely differently than uncharged versions. You'll understand why wound healing accelerates 46-100% faster and how you provide the right energetic field without invasive intervention.",
+    "hook": "Ian teaches senior biochemistry using quantum biology textbooks and says you're literally a series of field fluctuations\u2014then explains how Infinity Block restructures those fields in 8x8x8 inches of gold.",
+    "who": "Academics wanting quantum biology references, biohackers seeking mechanical explanations from credentialed scientists, skeptics who demand biochemistry rigor, and anyone serious about understanding quantum energy beyond metaphysics into measurable biology.",
+    "timestamps": [
+      {
+        "t": "unknown",
+        "s": "Ian Mitchell: Chief Scientific Advisor with senior biochemistry teaching role at university"
+      },
+      {
+        "t": "unknown",
+        "s": "'Life at the Edge' required reading for Ian's students to understand quantum biology foundations"
+      },
+      {
+        "t": "unknown",
+        "s": "Ian: 'You are a series of trillions of fluctuations of fields that have coalesced'"
+      },
+      {
+        "t": "unknown",
+        "s": "Philipp background: founded Leela Quantum Tech and Quantum Upgrade, former VP T-Mobile (14 countries), Kundalini yoga teacher, national tennis player, father of two"
+      },
+      {
+        "t": "unknown",
+        "s": "Ian explicit statement: 'I do this unpaid because the technology needs to get out there'"
+      },
+      {
+        "t": "unknown",
+        "s": "Todd Shipman allergy demo: crab meat allergy reversed through quantum field exposure"
+      },
+      {
+        "t": "unknown",
+        "s": "Infinity Block: three golden plates top and bottom, ~8x8x8 inches, highly concentrated quantum field between"
+      },
+      {
+        "t": "unknown",
+        "s": "Emoto Institute validation: quantum fields structure water faster than any other method tested"
+      }
+    ],
+    "qa": [
+      {
+        "q": "What's Ian's scientific explanation for what quantum energy actually is?",
+        "a": "You're a series of trillions of fluctuations of fields that have coalesced. The universe is fundamentally made of fields, not particles. Your body is a coherent field structure maintaining coherence through quantum mechanisms. When you expose that field system to external quantum fields, you're not adding something foreign\u2014you're synchronizing and optimizing the fields you already are. This is physics, not mysticism."
+      },
+      {
+        "q": "Why is Ian Mitchell unpaid and why does he care?",
+        "a": "Ian's exact words: 'I do this because the technology needs to get out there.' He's a senior biochemistry professor who sees the paradigm shift quantum biology represents. He's not financially motivated\u2014he's convinced this technology is critical for human health and evolution. That credibility matters when your primary advisor has nothing to gain financially."
+      },
+      {
+        "q": "How does Infinity Block actually work mechanically?",
+        "a": "Three golden plates top and bottom create a highly concentrated quantum energy field in the ~8x8x8 inch space between. The gold conducts and concentrates quantum fields (gold is used in quantum mechanics research). The spacing creates standing wave patterns that restructure the quantum fields of anything inside. The charging method is kept secret, but the result is measurable through dark field microscopy, redox potential testing, and functional improvements."
+      },
+      {
+        "q": "What's Ian's hypothesis about the mechanism\u2014what's actually changing?",
+        "a": "Ian's hypothesis: the quantum field affects electron spin configuration at the quantum level, which cascades up to affect compound function, cellular resonance, and ultimately physiological outcomes. A compound can be chemically identical but functionally different if its electron configuration changes. That's measurable through redox potential testing\u2014the compound behaves differently even though GC-MS shows it's the same."
+      },
+      {
+        "q": "How much faster do wounds heal in quantum fields?",
+        "a": "Cells healed 46-100% faster in all experiments with quantum field exposure. This means a wound that takes two weeks heals in five days. The mechanism is simple: you provide the right energetic field and cells heal themselves without invasion, drugs, or intervention. The quantum field optimizes mitochondrial ATP production, which accelerates cellular repair cascades."
+      },
+      {
+        "q": "Why does Emoto Institute matter for quantum water research?",
+        "a": "Emoto Institute tested how quickly water structures under different conditions. Quantum fields demonstrated the fastest water structuring of any method tested. Structured water has different electrical properties and influences cellular hydration. This explains why people report increased energy and recovery\u2014they're not just exposed to the field, they're hydrating at a quantum level."
+      }
+    ],
+    "quotes": [
+      "You are a series of trillions of fluctuations of fields that have coalesced.",
+      "I do this because the technology needs to get out there.",
+      "Chemically identical compounds show entirely different function when quantum-charged.",
+      "Cells healed 46-100% faster\u2014you're just providing the right energetic field.",
+      "Quantum fields structure water faster than any other method tested."
+    ],
+    "studies": [
+      {
+        "researcher": "Ian Mitchell",
+        "result": "Chemically identical compounds show entirely different functional behavior when quantum-charged",
+        "desc": "Redox potential testing of quantum-charged compounds versus uncharged controls"
+      },
+      {
+        "researcher": "Philipp and research team",
+        "result": "46-100% acceleration in wound healing with quantum field exposure in all experiments",
+        "desc": "Measurement of wound healing acceleration in quantum fields across multiple subjects"
+      },
+      {
+        "researcher": "Emoto Institute",
+        "result": "Quantum fields structure water faster than any other method tested",
+        "desc": "Testing water structuring speed under quantum fields versus other methods"
+      },
+      {
+        "researcher": "Todd Shipman",
+        "result": "Documented crab meat allergy reversed through Infinity Block exposure",
+        "desc": "Real-time allergy reversal through quantum field exposure"
+      }
+    ],
+    "products": [
+      {
+        "name": "Infinity Block",
+        "desc": "Three golden plates top and bottom, approximately 8x8x8 inches, creating highly concentrated quantum energy field between plates. Proves concept that quantum fields are concentrated through physical design. Emoto Institute validated it structures water faster than any other method. Redox potential testing shows quantum-charged compounds function entirely differently."
+      }
+    ]
+  },
+  {
+    "title": "The Quantum Energy Experiment",
+    "host": "Ben Greenfield",
+    "podcast": "Ben Greenfield Life",
+    "duration": "~90 min",
+    "youtube_url": "https://youtu.be/sIrEdX42TAM",
+    "yt_id": "sIrEdX42TAM",
+    "category": "biohacking",
+    "summary": "Ben Greenfield \u2014 a 2+ year Quantum Upgrade user \u2014 grills Philipp and Ian Mitchell on the latest science, and the data they present is staggering. A 256-channel EEG study shows an iPhone 16 attacks the limbic system within 2-3 SECONDS, but Quantum Upgrade reduces stress brainwaves by 80% and increases alpha waves by 1,300%. The ATP study shows 20-25% increases replicated 6 times. A 6-month blood study found ZERO spike protein traces in the treated group while 100% of the control group had them in every sample. And a 100-woman fertility study showed significant improvements across anxiety, depression, and all fertility markers.",
+    "hook": "256-channel EEG proves an iPhone 16 attacks your limbic system in 2 seconds \u2014 and Quantum Upgrade erases 80% of the brain stress while boosting alpha waves 13x.",
+    "who": "Biohackers who want the hardest data available, iPhone/5G users who want to see what their phone does to their brain, athletes wanting ATP performance gains, anyone concerned about spike proteins, and women dealing with fertility challenges.",
+    "timestamps": [
+      {
+        "t": "0:00",
+        "s": "Ben Greenfield reveals he's been using Quantum Upgrade for 2+ years and confirms 'there's no way that was placebo' after 3 nights of insomnia from maxing settings"
+      },
+      {
+        "t": "10:00",
+        "s": "256-channel EEG study: iPhone 16 attacks limbic system within 2-3 SECONDS \u2014 controls breath and heartbeat"
+      },
+      {
+        "t": "15:00",
+        "s": "Quantum Upgrade activated: 80% reduction in stress brainwaves, 1,300% increase in alpha activity \u2014 with the same iPhone still on"
+      },
+      {
+        "t": "20:00",
+        "s": "Institute tested 30 EMF protection products: 1/3 made things worse, 1/3 did nothing, only 2 actually worked"
+      },
+      {
+        "t": "25:00",
+        "s": "ATP study replicated 6 times: 20-25% increase every time, affected plates show clean pattern vs stochastic noise in controls"
+      },
+      {
+        "t": "30:00",
+        "s": "Spike protein bombshell: 6-month study \u2014 0% traces in treated group, 100% of control group had traces in every sample"
+      },
+      {
+        "t": "35:00",
+        "s": "100-woman fertility study: significant improvements in anxiety, depression, fear, HRV, and ALL fertility markers"
+      },
+      {
+        "t": "40:00",
+        "s": "30-dog veterinary study using 4 different testing methods shows significant results across the board"
+      }
+    ],
+    "qa": [
+      {
+        "q": "What does an iPhone 16 actually do to your brain?",
+        "a": "A 256-channel EEG study in Frankfurt showed the iPhone 16 attacks the limbic system \u2014 which controls breathing and heartbeat \u2014 within 2-3 SECONDS of being held near the ear. It caused a 77.6% increase in gamma activity and 82.9% increase in beta activity (stress waves), while alpha activity was suppressed. The iPhone 15 took 2-3 minutes to do the same thing. The iPhone 16 does it in seconds."
+      },
+      {
+        "q": "What happened when Quantum Upgrade was turned on during the EEG brain study?",
+        "a": "With the exact same iPhone 16 still held to the ear, Quantum Upgrade reduced stress-linked brainwaves by approximately 80% and increased beneficial alpha brain wave activity by 1,300% \u2014 that's 13x more alpha waves. The effect happened within the first few seconds and sustained. Full cognitive clarity maintained despite direct 5G EMF exposure."
+      },
+      {
+        "q": "How many other EMF protection products actually work?",
+        "a": "The German institute tested 30 different EMF protection stickers and technologies. One-third had to stop testing after 2 subjects because they made conditions WORSE. Another third did nothing at all. Only 2 technologies actually worked. Some products address one frequency but miss the complete EMF soup from modern devices."
+      },
+      {
+        "q": "What did the spike protein blood study find?",
+        "a": "In a 6-month randomized double-blind study with both vaccinated and unvaccinated subjects: the control group showed spike protein traces in 100% of subjects in EVERY blood sample across the entire 6 months. The Quantum Upgrade group showed ZERO traces of spike proteins in any subject across the entire study period. Complete absence versus universal presence."
+      },
+      {
+        "q": "What did the 100-woman fertility study show?",
+        "a": "A randomized double-blind study with 100 women showed significant improvements in anxiety levels, depression levels, fear levels, and heart rate variability. Every single fertility-related marker also showed improvement. Described as 'quite phenomenal.'"
+      },
+      {
+        "q": "What frequencies does Philipp personally use?",
+        "a": "World Champion or Olympic Performance for tennis matches (ATP boost + presence). Heal 360 as his go-to recovery frequency. Common Rest for nighttime sleep. Brain Support for podcasts \u2014 gives absolute clarity without information overwhelm. Prosperity frequency because he finds it one of the best despite being hard to prove scientifically. Exertion Response and Microbial Harmony when feeling sick."
+      },
+      {
+        "q": "Is Quantum Upgrade the same as sending energy like a cell tower?",
+        "a": "No \u2014 this is the critical distinction. It's NOT transmitting energy to you. Through quantum entanglement, you ARE in the field the moment you sign up. It doesn't need to find you in a specific location. It's entangled with you. When you understand quantum entanglement, it's impossible that it doesn't work \u2014 it's inescapable."
+      },
+      {
+        "q": "How do they prevent someone from quantum-upgrading a stranger without consent?",
+        "a": "Cars require make, model, and VIN number. Businesses require signing authority. Photos need identifying information. A mismatch between name and address means the system won't function. The free tier is capped at Hawkins 600 (peace vibration) with no specific frequencies \u2014 worst case, you're attacking someone with peace. The field itself is inherently supportive to life and neutralizes anything negative."
+      },
+      {
+        "q": "What's the deal with Ben Greenfield's insomnia from Quantum Upgrade?",
+        "a": "Ben cranked everything to maximum at night when he first got Quantum Upgrade and couldn't sleep for 3 nights straight. He had to reduce the levels at night to sleep normally. His assessment: 'There's no way that was placebo.' You have to adapt to it progressively \u2014 start lower, especially at night."
+      }
+    ],
+    "quotes": [
+      "There's no way that was placebo.",
+      "The field is intelligent. It's aware.",
+      "iPhone 16 attacks the limbic system within 2-3 SECONDS. The iPhone 15 took 2-3 minutes.",
+      "When you understand quantum entanglement, it is impossible that it doesn't work. It's inescapable.",
+      "The institute tested 30 EMF protection products. One-third made things WORSE. Another third did nothing. Only 2 actually worked."
+    ],
+    "studies": [
+      {
+        "researcher": "Top EEG scientist (unnamed)",
+        "result": "iPhone 16 attacks limbic system in 2-3 seconds. With Quantum Upgrade: 80% reduction in stress brainwaves, 1,300% increase in alpha waves. Scientist said 'This is incredible. This is absolutely amazing.'",
+        "desc": "256-channel advanced EEG study \u2014 10 min baseline in EMF-free room, 30 min iPhone 16 held to ear simulating 5G call, 30 min with Quantum Upgrade activated during same phone exposure. Subjects include 2x boxing world champion Natalie Zimmerman, expanding to 41 total."
+      },
+      {
+        "researcher": "Ian Mitchell + biochemistry professor",
+        "result": "20-25% ATP increase every time, clean distribution pattern vs stochastic noise in controls. Called 'the smoking gun of quantum interaction.'",
+        "desc": "ATP production study replicated 6 times \u2014 96-well plate, 4 cell conditions, double-blind, luminometer measurements"
+      },
+      {
+        "researcher": "BESA Institute team",
+        "result": "Control group: 100% of subjects showed spike protein traces in every sample for 6 months. Treated group: ZERO subjects showed any traces across entire study.",
+        "desc": "6-month randomized double-blind spike protein trace study with vaccinated and unvaccinated subjects using darkfield microscopy with illumination"
+      },
+      {
+        "researcher": "Reputable Health team",
+        "result": "Significant improvements in all mental health markers and ALL fertility-related markers",
+        "desc": "Randomized double-blind study on 100 women measuring anxiety, depression, fear, HRV, and fertility markers"
+      },
+      {
+        "researcher": "Austrian veterinary team",
+        "result": "Significant results across all four testing modalities",
+        "desc": "30-dog randomized double-blind study using 4 testing methods: darkfield microscopy, DECAVOL testing, owner surveys, traditional veterinary diagnostics"
+      },
+      {
+        "researcher": "Dr. Robert Shieff",
+        "result": "Wound healing acceleration documented across multiple iterations",
+        "desc": "Wound healing acceleration study \u2014 5 iterations testing tissue healing rates under quantum energy"
+      }
+    ],
+    "products": [
+      {
+        "name": "Quantum Upgrade Service",
+        "desc": "Not energy transmission \u2014 it's quantum entanglement. You ARE in the field. Customizable Hawkins levels, frequencies, boosters. System updates every 5 minutes. Free trial available with code BEN15."
+      },
+      {
+        "name": "Specific Frequencies",
+        "desc": "World Champion, Olympic Performance, Heal 360, Common Rest, Brain Support, Prosperity, Exertion Response, Microbial Harmony \u2014 each does something different. Rotate based on what you need."
+      }
+    ]
+  },
+  {
+    "title": "Healthy Living Today | Philipp von Holtzendorff, Ian Mitchell & Serena Poon",
+    "host": "Serena Poon",
+    "podcast": "Healthy Living Today",
+    "duration": "unknown",
+    "youtube_url": "https://youtu.be/mG0hGNb_tg8",
+    "yt_id": "mG0hGNb_tg8",
+    "category": "biohacking",
+    "summary": "Philipp, Ian Mitchell (Chief Scientific Advisor), and Serena Poon break down the exact mechanics of quantum-charged products and their real-world results. Ian demonstrates how compounds identical on GC-MS testing function completely differently after quantum charging, while Philipp reveals Todd Shipman's live crab meat allergy reversal at Bulletproof Conference using derma-roller exposure. The deep product dive covers Heal Capsule (brass with 78 frequencies embedded including primal healing water frequency), 23 Frequency Cards (Inner Peace, Abundance, Prosperity, Focus, Weight Loss), and quantum-charged silver fabric clothing. You'll learn the physics principle behind why you never actually touch another person (electron cloud collision), and the practical maintenance hack: clean brass with lemon and salt.",
+    "hook": "Ian's son asked 'So you're wearing a magic amulet?' and the answer is no\u2014you're carrying a quantum field generator that reverses allergies in minutes.",
+    "who": "People dealing with allergies (gluten, dairy, crab meat\u2014all reported reversal), anyone skeptical of quantum tech who wants biochemical proof, athletes needing specific frequency targeting, and product enthusiasts who want exact specifications.",
+    "timestamps": [
+      {
+        "t": "unknown",
+        "s": "Ian explains redox potential: same compound on GC-MS, entirely different function after quantum charging"
+      },
+      {
+        "t": "unknown",
+        "s": "Todd Shipman crab meat allergy live demonstration at Bulletproof Conference with derma-roller test"
+      },
+      {
+        "t": "unknown",
+        "s": "Multiple allergy reversals reported: gluten, lemons, dairy after quantum exposure"
+      },
+      {
+        "t": "unknown",
+        "s": "Waveform dynamics explanation: how quantum energy restructures at quantum level"
+      },
+      {
+        "t": "unknown",
+        "s": "Physics principle: you never touch another person, only hit their electron cloud"
+      },
+      {
+        "t": "unknown",
+        "s": "Heal Capsule: brass construction with 78 frequencies of vitamins/minerals embedded"
+      },
+      {
+        "t": "unknown",
+        "s": "Heal Capsule contains primal healing water frequency and inner healer frequency with 5 quantum energy spheres creating 2-3 meter field"
+      },
+      {
+        "t": "unknown",
+        "s": "Frequency Cards: 23 cards for specific use cases (Inner Peace, Abundance, Prosperity, Focus, Weight Loss)"
+      }
+    ],
+    "qa": [
+      {
+        "q": "How can a compound look identical on GC-MS testing but function completely differently?",
+        "a": "Ian's redox potential testing shows this directly. GC-MS measures mass and chemical structure, which remain unchanged. But quantum charging alters the electron configuration and waveform dynamics at the quantum level. The compound is structurally identical but functionally transformed. This explains why allergic reactions disappear\u2014the quantum-charged version has different resonance signature."
+      },
+      {
+        "q": "What exactly happened in Todd Shipman's live crab allergy reversal?",
+        "a": "Todd had a documented crab meat allergy. At Bulletproof Conference, he exposed the crab meat to a derma-roller set at high quantum frequency, then immediately ate the crab. No allergic reaction. The quantum field restructured the allergen's vibrational signature instantly. Multiple people reported similar reversals with gluten, dairy, and lemon after quantum exposure."
+      },
+      {
+        "q": "What's inside the Heal Capsule and how does it work?",
+        "a": "Brass construction with 78 embedded frequencies corresponding to vitamins, minerals, primal healing water frequency, and inner healer frequency. Five quantum energy spheres inside create a 2-3 meter quantum field around your body. The field triggers healing cascades at the cellular level without any physical substance entering your body. Pure quantum information restructuring."
+      },
+      {
+        "q": "How should someone use the Frequency Cards practically?",
+        "a": "Use one card at a time. Rotate based on what your body needs in that moment. If you need inner peace, carry the Inner Peace card. If you need focus, use the Focus card. The 23 available cards cover specific use cases: Abundance, Prosperity, Weight Loss, and more. Rotate as your priorities shift throughout the day or week."
+      },
+      {
+        "q": "Why is silver fabric used in quantum-charged clothing?",
+        "a": "Silver is an excellent conductor of quantum energy and has natural EMF blocking properties. The quantum charge is embedded directly into the silver fabric, creating a wearable field generator. This allows you to maintain a high-vibration frequency field 24/7 while also protecting against external EMF radiation."
+      },
+      {
+        "q": "What's the physics principle behind why you never actually touch another person?",
+        "a": "You're not touching their physical body\u2014you're colliding with their electron cloud. The electrons surrounding cells repel, so contact is always at the quantum field level, never at physical matter. This explains why quantum fields can affect people across distance and why physical contact isn't required for energy transfer."
+      }
+    ],
+    "quotes": [
+      "You are never going to actually touch another person\u2014you're hitting their electron cloud.",
+      "Same compound on GC-MS, entirely different function after quantum charging.",
+      "Todd Shipman ate crab meat he was allergic to after derma-roller quantum exposure\u2014no reaction."
+    ],
+    "studies": [
+      {
+        "researcher": "Ian Mitchell",
+        "result": "Compounds identical on GC-MS show entirely different redox behavior after quantum charging",
+        "desc": "Compound analysis before and after quantum charging using GC-MS and redox potential measurement"
+      },
+      {
+        "researcher": "Todd Shipman",
+        "result": "Known crab allergy subject experienced no reaction after quantum-charged exposure",
+        "desc": "Live testing of crab meat allergy reversal through quantum frequency exposure"
+      },
+      {
+        "researcher": "Philipp and Ian",
+        "result": "Gluten, lemon, and dairy allergies reported reversed or significantly reduced",
+        "desc": "Multiple reported cases of allergy reversal after quantum exposure"
+      }
+    ],
+    "products": [
+      {
+        "name": "Heal Capsule",
+        "desc": "Brass construction with 78 embedded frequencies of vitamins, minerals, primal healing water frequency, and inner healer frequency. Five quantum energy spheres create a 2-3 meter healing field. Pure frequency information without physical substances."
+      },
+      {
+        "name": "Frequency Cards (23 Total)",
+        "desc": "23 specific-use cards including Inner Peace, Abundance, Prosperity, Focus, Weight Loss. Each carries distinct frequency signature for targeted vibration optimization. Use one at a time, rotate based on current need."
+      },
+      {
+        "name": "Quantum-Charged Silver Fabric Clothing",
+        "desc": "Silver fabric embedded with quantum charge and EMF blocking properties. Maintains 24/7 quantum field exposure while protecting against external EMF radiation."
+      }
+    ]
+  },
+  {
+    "title": "Quantum Upgrade: Exciting Updates | Philipp von Holtzendorff, Ian Mitchell & Serena Poon",
+    "host": "Serena Poon",
+    "podcast": "Live Panel Discussion",
+    "duration": "~45 min",
+    "youtube_url": "https://youtu.be/w3YjajEgrZM",
+    "yt_id": "w3YjajEgrZM",
+    "category": "science",
+    "summary": "Philipp, Ian Mitchell, and Serena Poon walk through the latest Quantum Upgrade developments including new booster levels up to 1400 on the Hawkins scale. Ian drops the ATP production study bomb \u2014 20-25% increase across ALL four cell types the instant quantum energy was applied, measured with a luminometer precise to 10^-14. This is the episode where Ian calls the ATP data 'the smoking gun of quantum interaction.'",
+    "hook": "20-25% ATP boost in every cell type, measured at 10^-14 precision \u2014 Ian Mitchell calls it the smoking gun of quantum interaction.",
+    "who": "Anyone wanting the latest study data on ATP production, people curious about the practical meaning of a 20% cellular energy boost, and Quantum Upgrade users who want to understand the new higher booster levels.",
+    "timestamps": [
+      {
+        "t": "0:00",
+        "s": "Serena introduces the panel and frames Quantum Upgrade as one of the most powerful sources of pure natural quantum energy on earth"
+      },
+      {
+        "t": "5:00",
+        "s": "Philipp describes the analog backend system with digital frontend \u2014 completely customizable energy levels and frequencies"
+      },
+      {
+        "t": "10:00",
+        "s": "Ian reveals he now wears wireless earbuds because Quantum Upgrade negates the harmful EMF component"
+      },
+      {
+        "t": "15:00",
+        "s": "ATP production study details: 96-well plate, 4 cell types, double-blinded, luminometer at 10^-14 precision"
+      },
+      {
+        "t": "20:00",
+        "s": "Ian drops the number: minimum 20% ATP increase, one group over 25% \u2014 instant, uniform, across all four conditions"
+      },
+      {
+        "t": "25:00",
+        "s": "Ian calls it 'the smoking gun of quantum interaction' \u2014 even he was shocked despite being the one running experiments"
+      },
+      {
+        "t": "30:00",
+        "s": "Practical translation: 20% ATP increase = lifting 240 lbs instead of 200, running a mile in 12 min instead of 15"
+      },
+      {
+        "t": "35:00",
+        "s": "New booster levels: users getting unlocked to 1300 and 1400 on Hawkins scale after 3-4 months of adaptation"
+      }
+    ],
+    "qa": [
+      {
+        "q": "What exactly did the ATP production study show?",
+        "a": "They used a 96-well plate with 4 different cell types: healthy human dermal fibroblasts and A549 cancer cells, each in both glycolytic and ketogenic metabolism. The biochemistry professor plated cells, Ian was the only one who knew which was which. From the moment quantum energy was applied, every group showed minimum 20% ATP increase \u2014 one group jumped over 25%. Measured at 5, 13, and 19 minutes with a luminometer precise to 10^-14."
+      },
+      {
+        "q": "What does a 20% ATP increase actually mean for a person?",
+        "a": "ATP is your cellular energy currency \u2014 you'd die in seconds without it. A 20-25% increase translates directly to performance: if you walk a mile in 15 minutes, now it takes 12. If you can lift 200 pounds, now you can lift 240. It's a substantial, measurable improvement in strength and endurance across the board."
+      },
+      {
+        "q": "How is the ATP study blinded if Philipp runs the quantum energy?",
+        "a": "The biochemistry professor plates all the cells and takes baseline measurements. Ian is the only person who knows which well is which. Two photos of the plates are sent to Philipp \u2014 but Philipp doesn't know which plate is the test and which is control. Quantum Upgrade is applied via the photo. Nobody except Ian has the key until data is collected."
+      },
+      {
+        "q": "Can the Quantum Upgrade subscription be applied to anything?",
+        "a": "Yes \u2014 personal use, pets, cars, phones, homes, apartments, businesses. Each has its own service managed through a web dashboard. You can set Hawkins levels, add frequencies, schedule boosters, and now share management access with family members so your wife can control her own settings from her phone."
+      },
+      {
+        "q": "Why does Ian Mitchell now wear wireless earbuds?",
+        "a": "Ian avoided wireless earbuds for years because of EMF concerns. But the data from quantum energy studies shows the harmful component of EMFs is negated while you're in the field. He feels confident enough in the protection to wear them now \u2014 something he never would have done before."
+      }
+    ],
+    "quotes": [
+      "This is kind of the smoking gun of quantum interaction.",
+      "It sounds crazy. That's actually part of the thing \u2014 we're fully aware of that. That's why we have a free trial so people can actually check it out and test it.",
+      "Even though I was setting up the experiments and blinding them, when we got the datasets back, it was still kind of a wow."
+    ],
+    "studies": [
+      {
+        "researcher": "Ian Mitchell + biochemistry professor",
+        "result": "Minimum 20% ATP increase across all 4 conditions from the instant quantum energy was applied; one group exceeded 25%. Called 'the smoking gun of quantum interaction.'",
+        "desc": "Double-blind ATP production study \u2014 96-well plate, 4 cell conditions (healthy/cancer x glycolytic/ketogenic), luminometer measurements at 5/13/19 min"
+      }
+    ],
+    "products": [
+      {
+        "name": "Quantum Upgrade Service",
+        "desc": "One of the most powerful sources of pure natural quantum energy on earth. Analog backend, digital frontend. Completely customizable \u2014 levels, frequencies, boosters, day/night settings. New levels up to 1400 being unlocked for experienced users."
+      }
+    ]
+  }
 ];
 
-const catLabels = {
-  science:"Science", biohacking:"Biohacking", consciousness:"Consciousness",
-  emf:"EMF & 5G", origin:"Origin Story", skeptic:"Skeptic Interview"
-};
-const catColors = {
-  science:"var(--cat-science)", biohacking:"var(--cat-biohacking)",
-  consciousness:"var(--cat-consciousness)", emf:"var(--cat-emf)",
-  origin:"var(--cat-origin)", skeptic:"var(--cat-skeptic)"
-};
+const catColors={science:'var(--cat-science)',biohacking:'var(--cat-biohacking)',consciousness:'var(--cat-consciousness)',emf:'var(--cat-emf)',origin:'var(--cat-origin)'};
+const catLabels={science:'Science',biohacking:'Biohacking',consciousness:'Consciousness',emf:'EMF & 5G',origin:'Origin Story'};
 
-/* ── RENDER GRID ────────────────────────────────────────────── */
-const grid = document.getElementById('interviewGrid');
-videos.forEach((v, i) => {
-  const hasContent = (v.timestamps && v.timestamps.length > 0) || (v.qa && v.qa.length > 0);
-  const card = document.createElement('div');
-  card.className = 'v-card fade-in';
-  card.dataset.category = v.cat;
-  if (hasContent) card.onclick = function(){ toggleCardExpand(this); };
-
-  let expandHTML = '';
-  if (v.summary || hasContent) {
-    expandHTML = '<div class="v-expand">';
-    if (v.summary) expandHTML += '<div class="ep-label">Summary</div><p class="v-expand-summary">' + v.summary + '</p>';
-    if (v.timestamps && v.timestamps.length) {
-      expandHTML += '<div class="ep-label">Key Moments</div><ul class="timestamp-list">';
-      v.timestamps.forEach(ts => { expandHTML += '<li><span class="ts-time">' + ts.t + '</span><span class="ts-text">' + ts.s + '</span></li>'; });
-      expandHTML += '</ul>';
-    }
-    if (v.qa && v.qa.length) {
-      expandHTML += '<div class="ep-label">Q&amp;A</div>';
-      v.qa.forEach(q => { expandHTML += '<div class="qa-item"><div class="qa-q"><span class="qa-badge">Q</span>' + q.q + '</div><div class="qa-a">' + q.a + '</div></div>'; });
-    }
-    expandHTML += '</div>';
-  }
-
-  card.innerHTML =
-    '<div class="v-thumb">' +
-      '<span class="v-cat-badge ' + v.badge + '">' + catLabels[v.cat] + '</span>' +
-      '<div class="v-play"><i class="fas fa-play"></i></div>' +
-      '<span class="v-dur">' + v.duration + '</span>' +
-    '</div>' +
-    '<div class="v-body">' +
-      '<div class="v-body-cat" style="color:' + catColors[v.cat] + '">' + catLabels[v.cat] + '</div>' +
-      '<h3>' + v.title + '</h3>' +
-      '<div class="v-host"><i class="fas fa-microphone"></i> ' + v.host + '</div>' +
-      '<div class="v-footer">' +
-        '<span class="v-views"><i class="fas fa-eye"></i> ' + v.views + ' views</span>' +
-        (hasContent ? '<span class="v-expand-hint">Click for notes ↓</span>' : '') +
-      '</div>' +
-    '</div>' +
-    expandHTML;
-
+const grid=document.getElementById('grid');
+VIDEOS.forEach((v,i)=>{
+  const card=document.createElement('div');
+  card.className='v-card';
+  card.onclick=()=>openEpisode(i);
+  card.innerHTML=`
+    <div class="v-thumb">
+      <img src="https://img.youtube.com/vi/${v.yt_id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+      <span class="v-cat-badge badge-${v.category}">${catLabels[v.category]||v.category}</span>
+      <div class="v-play"><i class="fas fa-play"></i></div>
+      ${v.duration?`<span class="v-dur">${v.duration}</span>`:''}
+    </div>
+    <div class="v-body">
+      <div class="v-cat-label" style="color:${catColors[v.category]||'var(--cyan)'}">${catLabels[v.category]||v.category}</div>
+      <h3>${v.title}</h3>
+      <div class="v-host"><i class="fas fa-microphone"></i> ${v.host}${v.podcast?' · '+v.podcast:''}</div>
+      <div class="v-expand-hint">Click for notes, Q&A & timestamps →</div>
+    </div>`;
   grid.appendChild(card);
 });
 
-/* ── EXPAND/COLLAPSE ────────────────────────────────────────── */
-function toggleExpand(el) {
-  const panel = el.querySelector('.expand-panel');
-  if (panel) panel.classList.toggle('open');
-}
-function toggleCardExpand(el) {
-  const panel = el.querySelector('.v-expand');
-  if (panel) panel.classList.toggle('open');
+function openEpisode(i){
+  const v=VIDEOS[i];
+  const inner=document.getElementById('episodeInner');
+  
+  let tsHTML='';
+  v.timestamps.forEach(t=>{tsHTML+=`<li><span class="ts-time">${t.t}</span><span class="ts-text">${t.s}</span></li>`});
+  
+  let qaHTML='';
+  v.qa.forEach(q=>{qaHTML+=`<div class="qa-item"><div class="qa-q"><span class="qa-badge">Q</span>${q.q}</div><div class="qa-a">${q.a}</div></div>`});
+  
+  let studyHTML='';
+  v.studies.forEach(s=>{studyHTML+=`<div class="study-item"><div class="study-icon"><i class="fas fa-flask"></i></div><div><h4>${s.researcher}</h4><div class="study-desc">${s.desc}</div>${s.result?`<div class="study-result">${s.result}</div>`:''}</div></div>`});
+  
+  let prodHTML='';
+  v.products.forEach(p=>{prodHTML+=`<div class="product-item"><div class="product-name">${p.name}</div><div class="product-desc">${p.desc}</div></div>`});
+  
+  inner.innerHTML=`
+    <div class="ep-video"><iframe src="https://www.youtube.com/embed/${v.yt_id}?rel=0" allowfullscreen></iframe></div>
+    <div class="ep-meta">
+      <h2>${v.title}</h2>
+      <div class="ep-meta-host">with <strong>${v.host}</strong>${v.podcast?' · '+v.podcast:''}</div>
+      ${v.hook?`<div class="ep-meta-hook">${v.hook}</div>`:''}
+      <div class="ep-summary">${v.summary}</div>
+    </div>
+    <div class="ep-tabs">
+      <button class="ep-tab active" onclick="switchTab(this,'tab-ts')"><i class="fas fa-clock"></i>&nbsp; Key Moments</button>
+      <button class="ep-tab" onclick="switchTab(this,'tab-qa')"><i class="fas fa-comments"></i>&nbsp; Q&A (${v.qa.length})</button>
+      ${v.studies.length?`<button class="ep-tab" onclick="switchTab(this,'tab-studies')"><i class="fas fa-flask"></i>&nbsp; Studies Cited (${v.studies.length})</button>`:''}
+      ${v.products.length?`<button class="ep-tab" onclick="switchTab(this,'tab-products')"><i class="fas fa-cube"></i>&nbsp; Products (${v.products.length})</button>`:''}
+    </div>
+    <div class="ep-tab-panel active" id="tab-ts"><ul class="ts-list">${tsHTML}</ul></div>
+    <div class="ep-tab-panel" id="tab-qa">${qaHTML}</div>
+    ${v.studies.length?`<div class="ep-tab-panel" id="tab-studies">${studyHTML}</div>`:''}
+    ${v.products.length?`<div class="ep-tab-panel" id="tab-products">${prodHTML}</div>`:''}
+  `;
+  
+  document.getElementById('episodeOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
 }
 
-/* ── FILTERS ────────────────────────────────────────────────── */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    let count = 0;
-    document.querySelectorAll('.v-card').forEach(card => {
-      if (f === 'all' || card.dataset.category === f) {
-        card.classList.remove('hidden'); count++;
-      } else { card.classList.add('hidden'); }
-    });
-    document.getElementById('filterCount').textContent = 'Showing ' + count + ' interview' + (count !== 1 ? 's' : '');
-  });
+function closeEpisode(){
+  document.getElementById('episodeOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  const iframe=document.querySelector('.ep-video iframe');
+  if(iframe)iframe.src='';
+}
+
+function switchTab(btn,panelId){
+  btn.closest('.episode-inner').querySelectorAll('.ep-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  btn.closest('.episode-inner').querySelectorAll('.ep-tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+}
+
+document.getElementById('episodeOverlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('episodeOverlay'))closeEpisode();
 });
-
-/* ── ANIMATED COUNTERS ──────────────────────────────────────── */
-function animateCounters(els) {
-  els.forEach(el => {
-    const target = +el.dataset.target;
-    const suffix = el.dataset.suffix || '';
-    const dur = 1800;
-    const step = Math.max(1, Math.ceil(dur / target));
-    let current = 0;
-    const timer = setInterval(() => {
-      current++;
-      el.textContent = current + suffix;
-      if (current >= target) clearInterval(timer);
-    }, step);
-  });
-}
-
-/* ── INTERSECTION OBSERVERS ─────────────────────────────────── */
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
-
-// Hero counters
-let heroCounterDone = false;
-const heroObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !heroCounterDone) {
-      heroCounterDone = true;
-      animateCounters(document.querySelectorAll('.hero-stat-num'));
-    }
-  });
-}, { threshold: 0.3 });
-heroObs.observe(document.querySelector('.hero'));
-
-// Stats bar counters
-let statsCounterDone = false;
-const statsObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !statsCounterDone) {
-      statsCounterDone = true;
-      animateCounters(document.querySelectorAll('.stat-num'));
-    }
-  });
-}, { threshold: 0.3 });
-statsObs.observe(document.querySelector('.stats-bar'));
-
-/* ── NAV SCROLL ─────────────────────────────────────────────── */
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeEpisode()});
 </script>
 </body>
 </html>
